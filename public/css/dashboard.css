@@ -1,105 +1,138 @@
-.body {
-    display: flex;
-    background-color: rgb(81, 130, 237);
-    justify-content: center;
-    align-items: center;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
-/* 
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+/* Header Styles */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: white;
+    transition: background 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+header.scrolled {
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent when scrolling */
+    backdrop-filter: blur(0px); /* Adds blur effect */
+}
+
+.header-space {
+    height: 60px;
+    color: transparent;
+}
+
+/* Navbar */
 .navbar {
-    display: flex;
-    align-items: center; 
-    width: 100%;   
-    background-color: #4971b9;
-    padding: 10px 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.nav-links {
-    list-style: none;
-    justify-content: space-evenly;
-    display: flex;
-    gap: 15px;
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-} */
-
-.navbar {
-    display: flex;
-    align-items: center; 
-    justify-content: center; /* Centers content horizontally */
-    width: 100%;   
-    background-color: #4971b9;
-    padding: 10px 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.nav-links {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centers list items */
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+/* Logo */
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
     list-style: none;
-    padding: 0;
-    margin: 0 auto; /* Ensures centering */
-    gap: 15px;
+    gap: 30px; /* Adjusts spacing between icons */
+    justify-content: center; /* Centers the icons */
+    align-items: center; /* Ensures all items align in the center */
+    flex: 1;
 }
 
 .nav-links li {
     display: flex;
-    align-items: center;
+    align-items: center; /* Aligns icon and text properly */
 }
 
 .nav-links a {
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 18px;
-    color: black;
-}
-
-.logo {
-    padding: 5px;
-    font-style: oblique;
-    width: 90px;
-    height: auto;
-}
-
-.search-container {
     display: flex;
     align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    overflow: hidden;
-    background-color: #f9f9f9;
+    gap: 10px; /* Adds space between icon and text */
+    text-decoration: none;
+    font-size: 18px;
+    color: black; /* Change text color */
+    padding: 10px 15px; /* Adds space around links */
 }
 
-#search-input {
-    border: none;
-    padding: 8px;
-    outline: none;
-    width: 200px;
+/* Icons */
+.nav-links i {
+    color: black; /* Change icon color */
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#search-btn {
-    border: none;
-    background: #447ade;
-    color: white;
-    padding: 8px 12px;
+/* Show text only when needed */
+.nav-text {
+    display: none;
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
     cursor: pointer;
-    border-radius: 0 20px 20px 0;
 }
 
-.search-logo {
-    width: 20px;
-    height: 20px;
-    padding: 0%;
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: start;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        margin-left: 10px;
+        padding-left: 20px;
+        background: white;
+        width: 200px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 10px;
+    }
+
+    .nav-links a {
+        color: black;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        justify-content: left;
+    }
+
+    .nav-text {
+        display: inline;
+    }
 }
+    

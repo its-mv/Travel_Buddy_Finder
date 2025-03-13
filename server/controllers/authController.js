@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
     try {
-        const { fname, lname, phone, email, password, dob, name } = req.body;
+        const { fname, lname, phone, email, password, dob, image, name } = req.body;
+        // const image = req.file ? req.file.buffer : null;
 
         if (!fname || !lname || !phone || !email || !password || !dob || !name) {
             return res.status(400).json({ error: "All fields are required" });
@@ -13,13 +14,13 @@ exports.signup = async (req, res) => {
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        User.createUser({ fname, lname, phone, email, password: hashedPassword, dob, name }, (err, result) => {
+        User.createUser({ fname, lname, phone, email, password: hashedPassword, dob, image, name }, (err, result) => {
             if (err) {
                 console.error("Signup Error:", err);
                 if (err.code === "ER_DUP_ENTRY") {
-                    return res.status(400).json({ error: "Email or phone number already exists" });
+                    return res.status(400).json({ error: "Email already exists" });
                 }
-                return res.status(500).json({ error: "Signup failed due to server error" });
+                return res.status(500).json({ error: "Signup failed due to server error", error: err });
             }
             res.json({ message: "Signup successful", redirect: "/public/html/login.html" });
         });

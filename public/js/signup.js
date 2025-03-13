@@ -66,12 +66,13 @@ document.getElementById("signup-form").addEventListener("submit", async (event) 
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let dob = document.getElementById("dob").value;
+    let image = document.getElementById("image").files[0];
     let name = document.getElementById("password").value;
 
     const response = await fetch("http://localhost:5000/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fname, lname, phone, email, password, dob, name }),
+        body: JSON.stringify({ fname, lname, phone, email, password, dob, image, name }),
     });
 
     const data = await response.json();

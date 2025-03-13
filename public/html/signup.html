@@ -13,7 +13,7 @@
     <div class="container">
         <div class="left-panel">
             <h2 id="form-title">Sign Up</h2>
-            <form id="signup-form">
+            <form id="signup-form"  enctype="multipart/form-data">
                 <div class="form-step active">
                     <label for="fname">First Name</label>
                     <input type="text" id="fname" placeholder="Enter your first name" required>
@@ -42,7 +42,16 @@
                         <button type="button" class="next">Next</button>
                     </div>                    
                 </div>
-            
+
+                <div class="form-step">
+                    <label for="image">Profile Picture</label>
+                    <input type="file" id="image" accept="image/*" required>
+                    <div class="button-group">
+                        <button type="button" class="prev">Previous</button>
+                        <button type="button" class="next">Next</button>
+                    </div>                    
+                </div>
+                
                 <div class="form-step">
                     <label for="password">Password</label>
                     <div class="password-container">

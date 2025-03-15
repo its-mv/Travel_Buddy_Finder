@@ -73,6 +73,39 @@ header.scrolled {
     padding: 10px 15px; /* Adds space around links */
 }
 
+nav.navbar ul li a {
+    position:relative;
+    z-index: 1;
+}
+nav.navbar ul li a:hover {
+    color: #000;
+}
+nav.navbar ul li a:after {
+    text-decoration: underline;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    content: '.';
+    color: transparent;
+    background: rgb(81, 130, 237);
+    visibility: none;
+    opacity: 0;
+    z-index: -1;
+}
+nav.navbar ul li a:hover:after {
+    transition: all 0.4s ease-in-out;
+    border-bottom: 3px solid #000;
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
+}
+
 /* Icons */
 .nav-links i {
     color: black; /* Change icon color */

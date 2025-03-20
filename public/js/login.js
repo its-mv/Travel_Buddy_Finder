@@ -25,6 +25,7 @@ document.getElementById("login").addEventListener("submit", async (event) => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("fname", data.fname);  // Fix: Store correct keys
         localStorage.setItem("lname", data.lname);
+        localStorage.setItem("uid", data.uid);
 
         console.log("Token Stored:", localStorage.getItem("token"));
         console.log("Name Stored:", localStorage.getItem("fname"), localStorage.getItem("lname"));

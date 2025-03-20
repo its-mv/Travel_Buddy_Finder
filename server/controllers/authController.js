@@ -1,6 +1,8 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const db = require("../config/db"); // Adjust the path if needed
+
 
 exports.signup = async (req, res) => {
     try {
@@ -61,6 +63,7 @@ exports.login = async (req, res) => {
                 res.json({ 
                     message: "Login successful", 
                     token,
+                    uid: user.uid,
                     fname: user.fname, 
                     lname: user.lname,  
                     redirect: "/public/html/dashboard.html" 
@@ -87,4 +90,54 @@ exports.login = async (req, res) => {
         console.error("Login Error:", error);
         res.status(500).json({ error: "Server error occurred" });
     }
+};
+
+exports.getUserById = (req, res) => {
+    const uid = req.params.id;
+    
+        if (!uid) {
+            return res.status(400).json({ error: "User ID is required" });
+        }
+    const query = "SELECT home_city, country FROM user_full_info WHERE uid = ?";
+
+    db.query(query, [uid], (err, results) => {
+        if (err) return res.status(500).json({ error: "Database error" });
+        if (results.length === 0) return res.status(404).json({ error: "User not found" });
+
+        res.json(results[0]);
+    });
+};
+
+exports.getUserTravelStyles = (req, res) => {
+    const uid = req.params.id; // Get UID from URL param
+
+    if (!uid) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+
+    const query = `
+        SELECT ts.style_name 
+        FROM user_travel_styles uts
+        JOIN travel_styles ts ON uts.style_id = ts.id
+        WHERE uts.uid = ?;
+    `;
+
+    db.query(query, [uid], (err, results) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ error: "Database error" });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ error: "No travel styles found" });
+        }
+
+        res.json(results.map(row => row.style_name)); // Return array of style names
+    });
+};
+
+exports.feedback = (req, res) => {
+    res.json({
+        message: "Feedback received successfully",
+        redirect: "/public/html/home.html"
+    });
 };

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Buddy Finder</title>
+<link rel="stylesheet" href="../css/buddy_finder.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="../html/home.html" class="home"><i class="fas fa-arrow-left"></i></a>
+            <p class="title">Find Travel Buddies</p>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search" placeholder="Search by destination, interest, or name...">
+            </div>
+            <button id="filter-btn"><i data-lucide="Filter"></i>Filters</button>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section id="travelers">
+            <div class="tabs">
+                <button class="tab active" data-filter="all">All Travelers</button>
+                <button class="tab" data-filter="best">Best Matches</button>
+                <button class="tab" data-filter="recent">Recently Active</button>
+            </div>
+            <div id="travelersList"></div>
+            <!-- Trip Details Modal -->
+            <div id="tripDetailsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <div id="modalContent"></div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+    
+    <script src="../js/buddy_finder.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

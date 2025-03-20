@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelBuddy Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboarde.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">TravelBuddy</h1>
+            <div class="header-icons">
+                <div class="icon"><i class="fa fa-bell"></i><span class="badge"></span></div>
+                <div class="icon"><i class="fa fa-comment"></i></div>
+                <div class="avatar">
+                    <img src="placeholder.jpg" alt="User">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="dashboard">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="profile-card">
+                    <img src="placeholder.jpg" alt="User" class="profile-img">
+                    <h2>Rohan Sharma</h2>
+                    <p class="location">Mumbai, India</p>
+                    <div class="tags">
+                        <span class="badge">Adventure</span>
+                        <span class="badge">Food</span>
+                        <span class="badge">Culture</span>
+                    </div>
+                    <button class="edit-btn">Edit Profile</button>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active"><i class="fa fa-globe"></i> Overview</a>
+                    <a href="#" class="nav-item"><i class="fa fa-compass"></i> My Trips</a>
+                    <a href="#" class="nav-item"><i class="fa fa-comments"></i> Messages <span class="message-count">3</span></a>
+                    <a href="#" class="nav-item"><i class="fa fa-users"></i> Matches</a>
+                    <a href="#" class="nav-item"><i class="fa fa-user"></i> Profile</a>
+                    <a href="#" class="nav-item"><i class="fa fa-cog"></i> Settings</a>
+                </nav>
+
+                <button class="logout-btn"><i class="fa fa-sign-out-alt"></i> Log Out</button>
+            </aside>
+
+            <!-- Main Content Area -->
+            <!-- <main class="main-content">
+                <h2>Welcome, Rohan!</h2>
+                <p>Select a section from the sidebar to get started.</p>
+            </main> -->
+            <main class="main-content">
+                <section class="profile-completion">
+                    <h2>Profile Completion</h2>
+                    <p>Complete your profile to find better matches</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%;">75% Complete</div>
+                    </div>
+                    <ul class="completion-tasks">
+                        <li>Add emergency contact</li>
+                        <li>Verify your identity</li>
+                        <li>Connect social media</li>
+                    </ul>
+                    <a href="/profile" class="btn">Complete Profile</a>
+                </section>
+        
+                <section class="upcoming-trips">
+                    <h2>Upcoming Trips</h2>
+                    <p>Your planned adventures</p>
+                    <div class="trip-list">
+                        <div class="trip-item">
+                            <img src="/placeholder.svg" alt="Destination">
+                            <div class="trip-info">
+                                <h4>Destination Name</h4>
+                                <p>Trip Dates</p>
+                                <span>Companions: 3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/trips" class="btn">View All Trips</a>
+                </section>
+        
+                <section class="recent-messages">
+                    <h2>Recent Messages</h2>
+                    <p>Stay in touch with your travel buddies</p>
+                    <div class="message-list">
+                        <div class="message-item">
+                            <img src="/avatar-placeholder.png" alt="Sender">
+                            <div class="message-info">
+                                <h4>Sender Name</h4>
+                                <p>Message preview...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/messages" class="btn">View All</a>
+                </section>
+        
+                <section class="top-matches">
+                    <h2>Top Matches</h2>
+                    <p>Travelers with similar interests</p>
+                    <div class="match-list">
+                        <div class="match-item">
+                            <img src="/avatar-placeholder.png" alt="Match Name">
+                            <h4>Match Name</h4>
+                            <p>Destination</p>
+                            <span>85% Match</span>
+                            <a href="#" class="btn">Connect</a>
+                        </div>
+                    </div>
+                    <a href="/matches" class="btn">View All</a>
+                </section>
+        
+                <section class="my-trips">
+                    <h2>My Trips</h2>
+                    <div class="trip-categories">
+                        <button class="tab active">Upcoming</button>
+                        <button class="tab">Past</button>
+                        <button class="tab">Planning</button>
+                    </div>
+                    <div class="trip-list">
+                        <div class="trip-item">
+                            <img src="/placeholder.svg" alt="Destination">
+                            <div class="trip-info">
+                                <h3>Destination Name</h3>
+                                <p>Trip Dates</p>
+                                <span>3 travel buddies</span>
+                                <div class="trip-actions">
+                                    <a href="#" class="btn">Details</a>
+                                    <a href="#" class="btn">Chat</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/trips/new" class="btn">Plan a Trip</a>
+                </section>
+                <div class="tabs-content" id="past">
+                    <div class="text-center py-8">
+                        <p class="text-gray-500">No past trips yet</p>
+                    </div>
+                </div>
+        
+                <div class="tabs-content" id="planning">
+                    <div class="text-center py-8">
+                        <p class="text-gray-500">No trips in planning stage</p>
+                        <button class="button mt-4 bg-teal-600 hover:bg-teal-700">
+                            <a href="/trips/new">Start Planning</a>
+                        </button>
+                    </div>
+                </div>
+        
+                <div class="tabs-content" id="messages">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Messages</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="space-y-4" id="messages-list">
+                                <!-- Messages will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="tabs-content" id="matches">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Your Matches</h3>
+                            <p>Travelers with similar interests and destinations</p>
+                        </div>
+                        <div class="card-content grid">
+                            <div class="match-card">
+                                <div class="match-info">
+                                    <div class="avatar"></div>
+                                    <div>
+                                        <h4 class="name">Traveler Name</h4>
+                                        <p class="destination">Destination</p>
+                                    </div>
+                                </div>
+                                <div class="compatibility">
+                                    <p>Compatibility: <span class="percent">85%</span></p>
+                                    <div class="progress-bar"><div class="progress" style="width:85%"></div></div>
+                                </div>
+                                <div class="buttons">
+                                    <button class="btn-outline">View Profile</button>
+                                    <button class="btn-connect">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="tabs-content" id="profile">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Your Profile</h3>
+                            <button class="btn-outline"><a href="/profile/edit">Edit Profile</a></button>
+                        </div>
+                        <div class="card-content">
+                            <div class="profile-details">
+                                <div class="avatar-large"></div>
+                                <div>
+                                    <h2>Aditi Patel</h2>
+                                    <p>Ahmedabad, India</p>
+                                </div>
+                                <div>
+                                    <h3>Bio</h3>
+                                    <p>Adventure enthusiast and foodie...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </main>
+        
+        </div>
+    </div>
+
+</body>
+</html>

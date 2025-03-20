@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Buddy - Add Trip</title>
+    <link rel="stylesheet" href="../css/add_trip.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Travel Buddy</h1>
+        <form id="tripForm">
+            <h2>Plan a New Trip</h2>
+            
+            <div class="tabs">
+                <button type="button" class="tab-btn active btn-1" onclick="showTab(0)">Trip Details</button>
+                <button type="button" class="tab-btn btn-2" onclick="showTab(1)">Preferences</button>
+            </div>
+            
+            <div class="tab-content active">
+                <label for="tname">Trip Name</label>
+                <input type="text" id="tname" placeholder="Enter Trip Name" required>
+    
+                <label for="from_city">From City</label>
+                <input type="text" id="from_city" placeholder="Enter departure city" required>
+                
+                <label for="from_country">From Country</label>
+                <input type="text" id="from_country" placeholder="Enter departure country" required>
+                
+                <label for="to_city">To City</label>
+                <input type="text" id="to_city" placeholder="Enter destination city" required>
+                
+                <label for="to_country">To Country</label>
+                <input type="text" id="to_country" placeholder="Enter destination country" required>
+                
+                <label for="date">Travel Date</label>
+                <input type="date" id="date" required>
+                
+                <label for="return_date">Return Date</label>
+                <input type="date" id="rdate">
+
+                <label for="totalDays">Total Days</label>
+                <p><span id="totalDays">0 </span> Days</p>
+                
+                <label for="description">Trip Description</label>
+                <textarea id="description" placeholder="Describe your trip"></textarea>
+                
+                <button type="button" onclick="showTab(1)" class="next-btn">Next</button>
+            </div>
+            
+            <div class="tab-content">
+                <label for="budget">Budget</label>
+                <select id="budget">
+                    <option value="">Select</option>
+                    <option value="none">None</option>
+                    <option value="basic">Basic (₹)</option>
+                    <option value="moderate">Moderate (₹₹)</option>
+                    <option value="luxury">Luxury (₹₹₹)</option>
+                    <option value="ultra_luxury">Ultra Luxury (₹₹₹₹)</option>
+                </select>
+
+                <label for="travel_mode">Travel Mode</label>
+                <select id="travel_mode">
+                    <option value="">Select</option>
+                    <option value="flight">Flight</option>
+                    <option value="train">Train</option>
+                    <option value="bus">Bus</option>
+                    <option value="car">Car</option>
+                    <option value="bike">Bike</option>
+                </select>
+                
+                <label for="travel_pace">Pace of Trip</label>
+                <select id="travel_pace">
+                    <option value="">Select</option>
+                    <option value="relaxed">Relaxed (free schedule)</option>
+                    <option value="moderate">Moderate (normal schedule)</option>
+                    <option value="busy">Busy (packed schedule)</option>
+                </select>
+                
+                <label for="accomodation">Accommodation Preference</label>
+                <select id="accomodation">
+                    <option value="">Select</option>
+                    <option value="hostel">Hostel / Shared Room</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="airbnb">Airbnb / Homestay</option>
+                    <option value="camping">Camping / Tents</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="activites">Activities to be done</label>
+                <div class="activities-container">
+                    <div class="activities-column">
+                        <label><input type="checkbox" name="activities" value="1"> Hiking</label>
+                        <label><input type="checkbox" name="activities" value="2"> Local Cuisine</label>
+                        <label><input type="checkbox" name="activities" value="3"> Museums</label>
+                    </div>
+                    <div class="activities-column">
+                        <label><input type="checkbox" name="activities" value="4"> Nightlife</label>
+                        <label><input type="checkbox" name="activities" value="5"> Photography</label>
+                        <label><input type="checkbox" name="activities" value="6"> Shopping</label>
+                    </div>
+                    <div class="activities-column">
+                        <label><input type="checkbox" name="activities" value="7"> Sightseeing</label>
+                        <label><input type="checkbox" name="activities" value="8"> Water Sports</label>
+                        <label><input type="checkbox" name="activities" value="9"> Other</label>
+                    </div>
+                </div>
+                
+
+                
+                <button type="button" onclick="showTab(0)" class="prev-btn">Back</button>
+                <button type="submit" class="submit-btn">Add Trip</button>
+            </div>
+        </form>
+    </div>
+    <script src="../js/add_trip.js"></script>
+</body>
+</html>

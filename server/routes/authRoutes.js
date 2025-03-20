@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
+const tripRoutes = require("./tripRoutes");
 const multer = require("multer");
+const db = require("../config/db");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -17,5 +19,31 @@ const upload = multer({ storage: storage });
 
 router.post("/signup", upload.single("image"), authController.signup);
 router.post("/login", authController.login);
+router.get("/user/:id", authController.getUserById);
+router.use("/trips", tripRoutes);
+router.get("/user/:id/travel-styles", authController.getUserTravelStyles);
+
+
+// 🚀 **New Route: Get User Info by Email**
+router.get("/user-info", async (req, res) => {
+    const { uid } = req.query; // Fetch email from query parameter
+
+    if (!uid) {
+        return res.status(400).json({ error: "Uid is required" });
+    }
+
+    const query = "SELECT home_city, country FROM user_full_info WHERE uid = ?";
+
+    db.query(query, [uid], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: "Database error" });
+        }
+        if (results.length > 0) {
+            res.json(results[0]); // Send user details as JSON response
+        } else {
+            res.status(404).json({ error: "User not found" });
+        }
+    });
+});
 
 module.exports = router;

@@ -44,14 +44,14 @@ exports.sendRequest = (req, res) => {
 };
 
 exports.getRequests = (req, res) => {
-    const userId = req.user ? req.user.uid : req.body.uid; // Ensure user ID is retrieved correctly
+    const userId = req.user ? req.user.uid : req.body.user_id; // Ensure user ID is retrieved correctly
 
     if (!userId) {
         return res.status(400).json({ error: "User ID is required" });
     }
 
     const query = `
-        SELECT c.id, c.sender_id, u.fname, u.lname, u.email, c.status, c.created_at, c.updated_at
+        SELECT c.id, c.sender_id, u.fname, u.lname, u.email 
         FROM connections c
         JOIN user u ON c.sender_id = u.uid
         WHERE c.receiver_id = ? AND c.status = 'pending'
@@ -90,77 +90,4 @@ exports.updateRequest = (req, res) => {
     });
 };
 
-exports.getNotifications = (req, res) => {
-    const userId = req.user ? req.user.uid : req.body.uid;
 
-    if (!userId) {
-        return res.status(400).json({ error: "User ID is required" });
-    }
-
-    const query = `
-        SELECT c.id, c.sender_id, c.receiver_id, c.status, u.fname, u.lname, u.email, c.created_at, c.updated_at 
-        FROM connections c
-        JOIN user u ON c.receiver_id = u.uid
-        WHERE c.sender_id = ?
-        ORDER BY 
-            CASE 
-                WHEN c.status = 'pending' THEN 1 
-                WHEN c.status = 'accepted' THEN 2 
-                WHEN c.status = 'declined' THEN 3 
-            END,
-            CASE 
-                WHEN c.status = 'pending' THEN c.created_at 
-                WHEN c.status IN ('accepted', 'declined') THEN c.updated_at 
-            END ASC,
-            c.updated_at DESC
-    `;
-
-    db.query(query, [userId], (err, results) => {
-        if (err) {
-            console.error("Database Error:", err);
-            return res.status(500).json({ error: "Database error", details: err.message });
-        }
-
-        res.status(200).json(results);
-    });
-};
-
-exports.getUserRequests = (req, res) => {
-    const userId = req.user ? req.user.uid : req.body.uid;
-
-    if (!userId) {
-        return res.status(400).json({ error: "User ID is required" });
-    }
-
-    const sentQuery = `
-        SELECT c.id, c.sender_id, c.receiver_id, u.fname, u.lname, u.email, c.status, c.created_at, c.updated_at
-        FROM connections c
-        JOIN user u ON c.receiver_id = u.uid
-        WHERE c.sender_id = ?
-        ORDER BY FIELD(c.status, 'pending', 'accepted', 'declined'),
-        CASE WHEN c.status = 'pending' THEN c.created_at ELSE c.updated_at END DESC
-    `;
-
-    const receivedQuery = `
-        SELECT c.id, c.sender_id, c.receiver_id, u.fname, u.lname, u.email, c.status, c.created_at, c.updated_at
-        FROM connections c
-        JOIN user u ON c.sender_id = u.uid
-        WHERE c.receiver_id = ?
-        ORDER BY FIELD(c.status, 'pending', 'accepted', 'declined'),
-        CASE WHEN c.status = 'pending' THEN c.created_at ELSE c.updated_at END DESC
-    `;
-
-    db.query(sentQuery, [userId], (err, sentResults) => {
-        if (err) {
-            return res.status(500).json({ error: "Database error", details: err.message });
-        }
-
-        db.query(receivedQuery, [userId], (err, receivedResults) => {
-            if (err) {
-                return res.status(500).json({ error: "Database error", details: err.message });
-            }
-
-            res.status(200).json({ sentRequests: sentResults, receivedRequests: receivedResults });
-        });
-    });
-};

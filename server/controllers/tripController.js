@@ -33,7 +33,7 @@ exports.addTrip = (req, res) => {
 exports.getTrips = (req, res) => {
     const query = `
         SELECT 
-            t.uid,
+            t.uid, t.tid, 
             u.fname, u.lname, u.dob, 
             t.tname, t.from_city, t.from_country, 
             t.to_city, t.to_country, t.date, t.rdate, t.duration, t.description, t.budget, t.mode, t.pace, t.accomodation,t.time, t.tid,
@@ -76,6 +76,7 @@ exports.getTrips = (req, res) => {
 
 
             return {
+                tid: trip.tid,
                 uid: trip.uid,
                 name: `${trip.fname} ${trip.lname}`,
                 age,

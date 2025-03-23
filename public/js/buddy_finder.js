@@ -34,14 +34,27 @@ function formatDate2(isoString) {
     return `${formattedTime}, ${formattedDate}`;
 }
 
+function showErrorMessage(message) {
+    const errorMessage = document.getElementById("errorMessage");
+    const errorText = document.getElementById("errorText");
 
+    errorText.textContent = message;
+    errorMessage.style.display = "flex"; // Show the message
+}
+
+function closeErrorMessage() {
+    document.getElementById("errorMessage").style.display = "none";
+}
 
 async function sendConnectionRequest(trip) {
     try {
         const token = localStorage.getItem("token");
-        const sender_id = localStorage.getItem("uid"); // Get logged-in user's UID
-        const receiver_id = trip.uid; // The user who posted the trip
-
+        const sender_id = localStorage.getItem("uid"); 
+        const receiver_id = trip.uid;
+        const tid = trip.tid;
+            
+        console.log("Debug: tid before sending request:", tid);
+        
         if (!receiver_id) {
             throw new Error("Receiver ID is missing!");
         }
@@ -51,17 +64,22 @@ async function sendConnectionRequest(trip) {
             return;
         }
 
+        console.log("Sending connection request for trip ID:", tid);
+
         const response = await fetch("http://localhost:5000/connections/send-request", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ sender_id, receiver_id })
+            body: JSON.stringify({ sender_id, receiver_id, tid })
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
+            showErrorMessage(data.error || "Failed to send request");
+            return;
         }
 
         alert(`Connection request sent to ${trip.trip_name}!`);

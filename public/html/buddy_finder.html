@@ -22,6 +22,10 @@
     </header>
     
     <main class="container">
+        <div id="errorMessage" class="error-container" style="display: none;">
+            <span id="errorText"></span>
+            <button onclick="closeErrorMessage()">×</button>
+        </div>        
         <section id="travelers">
             <div class="tabs">
                 <button class="tab active" data-filter="all">All Travelers</button>

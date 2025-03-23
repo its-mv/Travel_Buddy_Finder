@@ -264,3 +264,26 @@ main {
         width: 100%; /* Adjust card width for smaller screens */
     }
 }
+
+/* Alert Box */
+.error-container {
+    position: absolute;
+    background-color: #ffdddd;
+    color: #d8000c;
+    padding: 10px;
+    border: 1px solid #d8000c;
+    border-radius: 5px;
+    margin: 10px 0;
+    display: flex;
+    z-index: 1;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error-container button {
+    background: none;
+    border: none;
+    color: #d8000c;
+    font-size: 18px;
+    cursor: pointer;
+}

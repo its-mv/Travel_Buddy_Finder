@@ -66,7 +66,7 @@ exports.login = async (req, res) => {
                     uid: user.uid,
                     fname: user.fname, 
                     lname: user.lname,  
-                    redirect: "/public/html/dashboard.html" 
+                    redirect: "/public/html/home.html" 
                 });
             }
             else {

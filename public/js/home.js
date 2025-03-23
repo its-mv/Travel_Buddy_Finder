@@ -6,14 +6,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const menuToggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const menuToggle = document.querySelector(".menu-toggle");
+//   const navLinks = document.querySelector(".nav-links");
 
-  menuToggle.addEventListener("click", function () {
-      navLinks.classList.toggle("show");
-  });
+//   menuToggle.addEventListener("click", function () {
+//       navLinks.classList.toggle("show");
+//   });
+// });
+
+document.querySelector(".menu-toggle").addEventListener("click", function() {
+  document.querySelector(".navbar-nav").classList.toggle("show-nav");
 });
+  
 
 document.addEventListener("DOMContentLoaded", () => {
   const firstName = localStorage.getItem("fname");
@@ -29,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("scroll", function () {
   let header = document.querySelector("header");
-  if (window.scrollY > 50) { // When user scrolls down 50px
+  if (window.scrollY > 50) {
       header.classList.add("scrolled");
   } else {
       header.classList.remove("scrolled");

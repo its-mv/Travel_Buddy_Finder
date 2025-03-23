@@ -23,7 +23,7 @@ document.getElementById("login").addEventListener("submit", async (event) => {
         }
 
         localStorage.setItem("token", data.token);
-        localStorage.setItem("fname", data.fname);  // Fix: Store correct keys
+        localStorage.setItem("fname", data.fname); 
         localStorage.setItem("lname", data.lname);
         localStorage.setItem("uid", data.uid);
 

@@ -1,5 +1,5 @@
-const Connection = require("../models/connection");
-const db = require("../config/db"); 
+const Connection = require("../server/models/connection");
+const db = require("../server/config/db"); 
 
 exports.sendRequest = (req, res) => {
     const { sender_id, receiver_id, tid } = req.body;

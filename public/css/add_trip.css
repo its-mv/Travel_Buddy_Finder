@@ -12,11 +12,16 @@ body {
 
 /* Header */
 .header {
-    width: 90%;
+    width: 100%;
     max-width: 800px;
     margin: auto;
     padding: 20px;
     text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 /* Form Container */
@@ -123,9 +128,6 @@ select {
     height: 16px;
 }
 
-
-
-
 /* Textarea */
 textarea {
     resize: vertical;
@@ -160,5 +162,24 @@ button:hover {
 @media (max-width: 768px) {
     .header {
         width: 100%;
+        /* text-align: center;
+        justify-content: center; */
+        padding: 0;
+    }
+    .tabs {
+        flex-direction: column;
+        width: 330px;
+    }
+    .tab-btn {
+        width: 100%;
+        border-radius: 5px;
+    }
+    #tripForm {
+        width: 100%;
+        max-width: 340px;
+        /* width: 300px; */
+    }
+    .activities-container {
+        flex-direction: column;
     }
 }

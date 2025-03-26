@@ -1,4 +1,4 @@
-const User = require("../models/userModel");
+const User = require("../models/userModel2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../config/db"); // Adjust the path if needed
@@ -73,17 +73,6 @@ exports.login = async (req, res) => {
                 return res.status(400).json({ error: "Invalid credentials" });
             }
 
-            // Compare password
-            // bcrypt.compare(password, user.password, (err, match) => {
-            //     if (err || !match) {
-            //         return res.status(400).json({ error: "Invalid credentials" });
-            //     }
-
-            //     // Generate JWT token
-            //     const token = jwt.sign({ uid: user.uid }, process.env.JWT_SECRET, { expiresIn: "1d" });
-
-            //     res.json({ message: "Login successful", token, redirect: "/public/html/dashboard.html" });
-            // });
         });
 
     } catch (error) {
@@ -109,11 +98,9 @@ exports.getUserById = (req, res) => {
 };
 
 exports.getUserTravelStyles = (req, res) => {
-    const uid = req.params.id; // Get UID from URL param
+    const uid = req.params.id;
 
-    if (!uid) {
-        return res.status(400).json({ error: "User ID is required" });
-    }
+    if (!uid) return res.status(400).json({ error: "User ID is required" });
 
     const query = `
         SELECT ts.style_name 
@@ -123,17 +110,12 @@ exports.getUserTravelStyles = (req, res) => {
     `;
 
     db.query(query, [uid], (err, results) => {
-        if (err) {
-            console.error("Database error:", err);
-            return res.status(500).json({ error: "Database error" });
-        }
-        if (results.length === 0) {
-            return res.status(404).json({ error: "No travel styles found" });
-        }
+        if (err) return res.status(500).json({ error: "Database error" });
 
         res.json(results.map(row => row.style_name)); // Return array of style names
     });
 };
+
 
 exports.feedback = (req, res) => {
     res.json({

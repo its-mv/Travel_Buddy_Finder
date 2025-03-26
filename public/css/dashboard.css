@@ -147,6 +147,44 @@ main .container {
     margin: 5px 5px 0px 5px;
     padding: 5px 5px 0px 5px;
 }
+
+/* profile completion */
+.profile-completion-box {
+    padding: 5px 5px 0px;
+    margin: 5px 5px 0px;
+    max-width: 300px;
+    background: #fff;
+}
+
+.progress-container {
+    margin: 10px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    background: #f5f6f7 !important;
+    height: 8px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background-color: grey !important;
+    width: 0%;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 8px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .title {    
     font-size: 20px;
     font-weight: bold;

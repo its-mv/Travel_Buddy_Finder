@@ -19,7 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             const data = await response.json();
             
             if (response.ok) {
-                document.getElementById("Location").innerText = `${data.home_city}, ${data.country}`;
+                if (data.home_city && data.country) {
+                    document.getElementById("Location").innerText = `${data.home_city}, ${data.country}`;
+                }
+                else {
+                    document.getElementById("Location").innerText = 'Location Not Set';
+                    document.getElementById("Location").style.backgroundColor = "red";
+                }
             } else {
                 console.error("User info not found");
             }
@@ -30,7 +36,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Fetch User Travel Styles
         try {
             const response = await fetch(`http://localhost:5000/auth/user/${uid}/travel-styles`);
-            if (!response.ok) throw new Error("Failed to fetch travel styles");
+
+            if (!response.ok) {
+                document.getElementById("TravelStyles").textContent = "No Styles Set";
+                document.getElementById("TravelStyles").style.backgroundColor = "red";
+                return;
+            }
 
             const styles = await response.json();
             const stylesContainer = document.getElementById("TravelStyles");
@@ -47,5 +58,41 @@ document.addEventListener("DOMContentLoaded", async () => {
         } catch (error) {
             console.error("Error fetching travel styles:", error);
         }
+    }
+});
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        window.location.href = "../html/index.html";
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:5000/profile/profile-completion", {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const data = await response.json();
+
+        if (data.completionPercentage === 100) {
+            document.getElementById("profileCompletion").style.display = "none";
+            return;
+        }
+
+        document.getElementById("completionPercentage").textContent = `${data.completionPercentage}% Complete`;
+        document.getElementById("completionProgress").style.width = `${data.completionPercentage}%`;
+
+        const missingItemsList = document.getElementById("missingItems");
+        missingItemsList.innerHTML = "";
+        data.missingFields.forEach(field => {
+            let listItem = document.createElement("li");
+            listItem.textContent = field;
+            missingItemsList.appendChild(listItem);
+        });
+
+    } catch (error) {
+        console.error("Error fetching profile completion:", error);
     }
 });

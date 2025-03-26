@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../css/profile.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <a href="home.html"><i class="fas fa-arrow-left"></i></a>
+            <h1 class="text-center">Profile Completion</h1>
+        </div>
+    </header>
+    <main>
+        <div class="profile-container">
+            <div class="progress-container">
+                <span id="progress-text">Profile Completion: 0%</span>
+                <div class="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+            </div>
+
+            <form id="profile-form">
+                <label>Bio:</label>
+                <input type="text" id="bio" name="bio">
+
+                <label>Home City:</label>
+                <input type="text" id="home_city" name="home_city">
+
+                <label>Country:</label>
+                <input type="text" id="country" name="country">
+
+                <label>Address:</label>
+                <input type="text" id="address" name="address">
+
+                <label>Travel Styles:</label>
+                    <label><input type="checkbox" name="travelStyle" value="1"> Adventure</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="2"> Beach</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="3"> Cultural</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="4"> Mountain</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="5"> Nature</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="6"> Relaxation</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="7"> Rural</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="8"> Urban</label><br>
+                    <label><input type="checkbox" name="travelStyle" value="9"> Other</label><br>
+
+                <label>Emergency Contact:</label>
+                <input type="text" id="emergency_contact" name="emergency_contact">
+
+                <div class="ident">
+                    <label>Identity Verified:</label>
+                    <p>(This will be done by the admin)</p>
+                </div>
+                <input type="checkbox" id="identity_verified" name="identity_verified" disabled>
+
+                <div class="social-media">   
+                    <h3>Social Media (Any two)</h3> 
+                    <label>Instagram:</label>
+                    <input type="text" id="instagram" name="instagram" placeholder="URL of Instagram I'd">
+
+                    <label>Snapchat:</label>
+                    <input type="text" id="snapchat" name="snapchat" placeholder="URL of Snapchat I'd">
+
+                    <label>Facebook:</label>
+                    <input type="text" id="facebook" name="facebook" placeholder="URL of Facebook I'd">
+                </div>
+
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </main>
+    <script src="../js/profile.js"></script>
+</body>
+</html>

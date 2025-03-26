@@ -165,7 +165,6 @@ main {
     padding-bottom: 15px;
 }
 
-
 /* Media Queries */
 @media (max-width: 768px) {
     .container-fluid {
@@ -183,7 +182,7 @@ main {
         display: none; 
         flex-direction: column;
         position: absolute;
-        top: 0px;
+        top: 40px;
         left: 0;
         background: white;
         width: 200px;
@@ -198,9 +197,9 @@ main {
         transform: scale(1);
     }
     .menu-toggle {
-        top : -79px;
-        left: 600px;
-        color: white;
+        /* top : -79px;
+        left: 0%; */
+        color: black;
         position: absolute;
         display: block;
         background: none;
@@ -212,4 +211,62 @@ main {
     .show-nav {
         display: none !important; 
     }      
+}
+
+/* Logout Message */
+.hidden {
+    display: none;
+}
+
+.confirm-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 8px;
+}
+
+.confirm-box button {
+    margin: 10px;
+    padding: 10px 45px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-box button:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.1);
+}
+
+#confirm-yes {
+    background-color: #28a745;
+    color: white;
+}
+
+#confirm-no {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+@media (max-width: 380px) {
+    .container {
+        flex-direction: column;
+    }
+    .menu-toggle {
+        top : -125px;
+        left: 90%;
+    }
+    .navbar-nav{
+        top: 0px;
+        left: 45%;
+    }
+    .slogan {
+        text-align: right;
+    }
 }

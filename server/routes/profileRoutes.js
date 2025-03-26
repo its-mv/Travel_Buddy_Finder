@@ -10,6 +10,6 @@ router.put("/update", authMiddleware, profileController.updateProfile);
 router.get("/", authMiddleware, profileController.getProfile);
 router.get("/styles/:id", authController.getUserTravelStyles);
 router.put("/profile/styles", authMiddleware, profileController.updateUserTravelStyles);
-
+router.post("/request-verification", authMiddleware, profileController.requestVerification);
 
 module.exports = router;

@@ -1,110 +1,7 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//     const form = document.getElementById("profile-form");
-    
-//     // Fetch user profile data
-//     fetch("http://localhost:5000/profile", { 
-//         method: "GET",
-//         headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
-//     })
-//     .then(res => res.json())
-//     .then(data => {
-//         if (data) {
-//             document.getElementById("bio").value = data.bio || "";
-//             document.getElementById("home_city").value = data.home_city || "";
-//             document.getElementById("country").value = data.country || "";
-//             document.getElementById("address").value = data.address || "";
-//             document.getElementById("emergency_contact").value = data.emergency_contact || "";
-//             document.getElementById("identity_verified").checked = data.identity_verified;
-//             document.getElementById("instagram").value = data.instagram || "";
-//             document.getElementById("snapchat").value = data.snapchat || "";
-//             document.getElementById("facebook").value = data.facebook || "";
-
-//             // Set selected travel styles
-//             const styleSelect = document.getElementById("travel_styles");
-
-//             const userStyles = data.styles || []; // Expecting an array like ["Adventure", "Beach"]
-//             Array.from(styleSelect.options).forEach(option => {
-//                 if (userStyles.includes(option.textContent)) {
-//                     option.selected = true;
-//                 }
-//             });
-
-//             updateProgressBar(data);
-//         }
-//     })
-//     .catch(err => console.error("Error fetching profile:", err));
-
-//     // Handle form submission
-//     form.addEventListener("submit", (e) => {
-//         e.preventDefault();
-
-//         // Get values of social media fields
-//         let instagram = document.getElementById("instagram").value.trim();
-//         let snapchat = document.getElementById("snapchat").value.trim();
-//         let facebook = document.getElementById("facebook").value.trim();
-
-//         const selectedStyles = Array.from(document.querySelectorAll('input[name="travelStyle"]:checked')).map(input => input.value);
-
-//         console.log("Selected Travel Styles:", selectedStyles);
-
-//         // Count non-empty fields
-//         let filledSocials = [instagram, snapchat, facebook].filter(val => val !== "").length;
-
-//         // Enforce minimum 2 required
-//         if (filledSocials < 2) {
-//             alert("Please enter at least two of the following: Instagram, Facebook, or Snapchat.");
-//             return;
-//         }
-
-//         const updatedData = {
-//             bio: document.getElementById("bio").value,
-//             home_city: document.getElementById("home_city").value,
-//             country: document.getElementById("country").value,
-//             address: document.getElementById("address").value,
-//             emergency_contact: document.getElementById("emergency_contact").value,
-//             styles : selectedStyles,
-//             instagram,
-//             snapchat,
-//             facebook,
-//         };
-
-//         fetch("http://localhost:5000/profile/update", {
-//             method: "PUT",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "Authorization": `Bearer ${localStorage.getItem("token")}`
-//             },
-//             body: JSON.stringify(updatedData)
-//         })
-//         .then(res => {
-//             if (!res.ok) {
-//                 throw new Error(`HTTP Error! Status: ${res.status}`);
-//             }
-//             return res.json();
-//         })
-//         .then(data => {
-//             alert(data.message);
-//             updateProgressBar(updatedData);
-//             window.location.href = '../html/dashboard.html';
-//         })
-//         .catch(err => console.error("Error updating profile:", err));
-//     });
-
-//     // Function to update progress bar
-//     function updateProgressBar(profile) {
-//         let filledFields = Object.values(profile).filter(val => val && val !== "Not Set").length;
-//         let totalFields = Object.keys(profile).length;
-//         totalFields--;
-//         let percentage = Math.round((filledFields / totalFields) * 100);
-
-//         document.getElementById("progress-fill").style.width = `${percentage}%`;
-//         document.getElementById("progress-text").innerText = `Profile Completion: ${percentage}%`;
-//     }
-// });
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("profile-form");
+    const requestVerificationBtn = document.getElementById("request-verification");
+    const verificationStatusText = document.getElementById("verification-status");
 
     // Fetch user profile data
     async function fetchProfile() {
@@ -121,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("country").value = data.country || "";
                 document.getElementById("address").value = data.address || "";
                 document.getElementById("emergency_contact").value = data.emergency_contact || "";
-                document.getElementById("identity_verified").checked = data.identity_verified;
+                // document.getElementById("identity_verified").checked = data.identity_verified;
                 document.getElementById("instagram").value = data.instagram || "";
                 document.getElementById("snapchat").value = data.snapchat || "";
                 document.getElementById("facebook").value = data.facebook || "";
@@ -134,6 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
 
+                 // Show verification request button if not verified
+                 if (!data.identity_verified) {
+                    requestVerificationBtn.style.display = "block";
+                    verificationStatusText.innerText = "❌ Identity not verified.";
+                } else {
+                    verificationStatusText.innerText = "✅ Your identity is verified.";
+                }
 
                 updateProgressBar(data);
             }
@@ -215,10 +119,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Handle verification request
+    requestVerificationBtn.addEventListener("click", async () => {
+        try {
+            const res = await fetch("http://localhost:5000/profile/request-verification", {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+            });
+
+            const data = await res.json();
+            if (data.success) {
+                verificationStatusText.innerText = "🔄 Verification request sent!";
+                requestVerificationBtn.style.display = "none"; 
+            } else {
+                verificationStatusText.innerText = "❌ Error requesting verification.";
+            }
+        } catch (err) {
+            console.error("Error requesting verification:", err);
+        }
+    });
+
     // Function to update progress bar
     function updateProgressBar(profile) {
         let filledFields = Object.values(profile).filter(val => val && val !== "Not Set").length;
-        let totalFields = Object.keys(profile).length - 1; // Exclude styles count
+        let totalFields = Object.keys(profile).length - 1; 
         let percentage = Math.round((filledFields / totalFields) * 100);
 
         document.getElementById("progress-fill").style.width = `${percentage}%`;

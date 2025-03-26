@@ -81,3 +81,41 @@ exports.updateUserTravelStyles = (req, res) => {
         });
     });
 };
+
+exports.requestVerification = async (req, res) => {
+    try {
+        const userId = req.user.uid; // Authenticated user ID
+
+        // Check if a request already exists for this user
+        db.query(
+            "SELECT * FROM identity_verification WHERE uid = ? AND status = 'pending'",
+            [userId],
+            (err, rows) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ success: false, message: "Database error" });
+                }
+
+                if (rows.length > 0) {
+                    return res.status(400).json({ success: false, message: "Verification request already submitted." });
+                }
+
+                // Insert a new verification request
+                db.query(
+                    "INSERT INTO identity_verification (uid, status, created_at) VALUES (?, 'pending', NOW())",
+                    [userId],
+                    (insertErr, result) => {
+                        if (insertErr) {
+                            console.error("Error inserting verification request:", insertErr);
+                            return res.status(500).json({ success: false, message: "Failed to submit request." });
+                        }
+                        res.json({ success: true, message: "Verification request submitted successfully." });
+                    }
+                );
+            }
+        );
+    } catch (error) {
+        console.error("Error requesting verification:", error);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+};

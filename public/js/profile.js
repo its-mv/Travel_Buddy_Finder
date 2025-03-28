@@ -23,18 +23,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("snapchat").value = data.snapchat || "";
                 document.getElementById("facebook").value = data.facebook || "";
 
-                // Set selected travel styles
-                const userStyles = data.styles ? data.styles.map(style => String(style)) : []; // Convert to string for comparison
+                const userStyles = data.style ? data.style.split(",").map(id => id.trim()) : [];
+                // alert("Processed User Styles: " + userStyles.join(", "));
+
+
                 document.querySelectorAll('input[name="travelStyle"]').forEach(checkbox => {
-                    if (userStyles.includes(checkbox.value)) {
+                    if (userStyles.includes(checkbox.value)) { 
                         checkbox.checked = true;
                     }
-                });
+                });                
 
                  // Show verification request button if not verified
                  if (!data.identity_verified) {
                     requestVerificationBtn.style.display = "block";
-                    verificationStatusText.innerText = "❌ Identity not verified.";
+                    verificationStatusText.innerText = "(❌ Identity not verified.)";
                 } else {
                     verificationStatusText.innerText = "✅ Your identity is verified.";
                 }

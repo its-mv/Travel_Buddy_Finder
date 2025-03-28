@@ -82,6 +82,13 @@ form {
     gap: 8px;
 }
 
+.verification {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 label {
     font-weight: bold;
     margin-top: 10px;

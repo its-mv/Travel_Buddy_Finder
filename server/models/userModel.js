@@ -50,6 +50,33 @@ const User = {
             return callback(null, results[0]);
         })
     },  
+
+    // getUserrProfile (for edit)
+    getUserrProfile: (userId, callback) => {
+        const query = `SELECT 
+                            ufi.bio, 
+                            ufi.home_city, 
+                            ufi.country, 
+                            ufi.address, 
+                            ufi.emergency_contact, 
+                            ufi.identity_verified, 
+                            ufi.instagram, 
+                            ufi.snapchat, 
+                            ufi.facebook,
+                            GROUP_CONCAT(uts.style_id) AS style 
+                        FROM user_full_info ufi
+                        LEFT JOIN user_travel_styles uts ON ufi.uid = uts.uid
+                        WHERE ufi.uid = ?
+                        GROUP BY ufi.uid;
+                       `;
+    
+        db.query(query, [userId], (err, results) => {
+            if (err) return callback(err, null);
+            console.log(results);
+            if (results.length === 0) return callback(null, null);
+            return callback(null, results[0]);
+        })
+    },  
     
     updateUserProfile: (userId, userData, callback) => {
         const query = `

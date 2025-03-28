@@ -48,7 +48,7 @@ exports.updateProfile = (req, res) => {
 exports.getProfile = (req, res) => {
     const userId = req.user.uid;
 
-    UserModel.getUserProfile(userId, (err, profile) => {
+    UserModel.getUserrProfile(userId, (err, profile) => {
         if (err) return res.status(500).json({ error: "Database error", details: err });
         if (!profile) return res.status(404).json({ error: "User not found" });
         res.json(profile);

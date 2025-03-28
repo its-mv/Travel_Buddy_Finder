@@ -108,6 +108,10 @@ main .container {
     border: 1px solid grey;
     background-color: white;
 }
+.left .edit-profile a {
+    text-decoration: none;
+    color: black;
+}
 .left .navbar {
     margin: 0px 12px;
     width: 90%;

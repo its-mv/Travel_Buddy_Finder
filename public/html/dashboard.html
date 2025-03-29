@@ -44,7 +44,7 @@
                                 <a class="nav-link" href="../html/home.html"><i data-lucide="home"  width="17" height="17"></i> Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa-regular fa-compass"></i> My Trips</a>
+                                <a id="myTripsLink"  class="nav-link" href="#"><i class="fa-regular fa-compass"></i> My Trips</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fa-regular fa-message"></i> Messages</a>
@@ -78,9 +78,18 @@
                             <button onclick="window.location.href='profile.html'">Complete Profile</button>
                         </div>
                     </div>
-                    <div class="box small">
-                        <p class="title upcoming-trip">Upcoming Trips</p>
+                    <div class="box small" id="upcomingTrips" >
+                        <p class="title upcoming-trip" >Upcoming Trips</p>
                         <p class="note">Your planned adventures</p>
+                        <div id="userTrips"></div>
+                        <!-- Modal for Trip Cancellation -->
+                        <div id="cancelModal" class="modal">
+                            <div class="modal-content">
+                                <p>Are you sure you want to cancel this trip?</p>
+                                <button id="confirmCancel">Yes, Cancel</button>
+                                <button id="closeModal">No, Keep It</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="middle">

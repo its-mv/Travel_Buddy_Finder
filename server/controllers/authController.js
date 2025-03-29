@@ -122,3 +122,50 @@ exports.feedback = (req, res) => {
         redirect: "/public/html/home.html"
     });
 };
+
+exports.getUserTrips = (req, res) => {
+    const { uid } = req.params; // Extract user ID from request parameters
+
+    if (!uid) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+
+    const query = `
+        SELECT 
+            t.tid, t.tname, t.from_city, t.from_country, 
+            t.to_city, t.to_country, t.date, t.rdate, 
+            t.duration, t.budget, t.mode, t.pace, 
+            t.accomodation, t.description, t.time,
+            GROUP_CONCAT(DISTINCT a.activity_name SEPARATOR ', ') AS activities
+        FROM trip t
+        LEFT JOIN trip_activities ta ON t.tid = ta.tid
+        LEFT JOIN activities a ON ta.activity_id = a.id
+        WHERE t.uid = ?
+        GROUP BY t.tid
+    `;
+
+    db.query(query, [uid], (err, results) => {
+        if (err) {
+            console.error("Database Query Error:", err);
+            return res.status(500).json({ error: "Database query failed", details: err.message });
+        }
+
+        res.json(results);
+    });
+};
+
+exports.cancelTrip = (req, res) => {
+    const { tid } = req.params;
+    
+    if (!tid) return res.status(400).json({ error: "Trip ID is required" });
+
+    const query = "DELETE FROM trip WHERE tid = ?";
+    db.query(query, [tid], (err, result) => {
+        if (err) {
+            console.error("Database Error:", err);
+            return res.status(500).json({ error: "Failed to cancel trip" });
+        }
+
+        res.json({ message: "Trip cancelled successfully" });
+    });
+};

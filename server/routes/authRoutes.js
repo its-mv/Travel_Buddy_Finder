@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
 const tripRoutes = require("./tripRoutes");
+const authMiddleware = require("../middleware/authMiddleware");
 const multer = require("multer");
 const db = require("../config/db");
+// const authMiddleware = require("../middleware/authMiddleware");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -22,6 +24,8 @@ router.post("/login", authController.login);
 router.get("/user/:id", authController.getUserById);
 router.use("/trips", tripRoutes);
 router.get("/user/:id/travel-styles", authController.getUserTravelStyles);
+router.get("/user-trips/:uid", authMiddleware, authController.getUserTrips);
+router.delete("/cancel/:tid", authMiddleware, authController.cancelTrip);
 
 
 // 🚀 **New Route: Get User Info by Email**

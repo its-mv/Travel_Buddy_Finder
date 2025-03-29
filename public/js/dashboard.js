@@ -47,6 +47,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             const stylesContainer = document.getElementById("TravelStyles");
             
             stylesContainer.innerHTML = ""; // Clear previous styles
+            
+            if (styles.length === 0) {  
+                stylesContainer.textContent = "No Styles Set";  
+                stylesContainer.style.backgroundColor = "red";  
+                return;
+            }
 
             styles.forEach(style => {
                 const styleTag = document.createElement("span");

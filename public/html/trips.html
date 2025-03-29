@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Trips</title>
+    <link rel="stylesheet" href="../css/trips.css">
+    <script src="../js/trips.js" defer></script>
+</head>
+<body>
+    <!-- <h2>Upcoming Trips</h2>
+    <div id="upcomingTrips"></div>
+
+    <h2>Ongoing Trips</h2>
+    <div id="ongoingTrips"></div>
+
+    <h2>Completed/Cancelled Trips</h2>
+    <div id="completedTrips"></div> -->
+
+    <!-- <h2>My Trips</h2>
+    <div id="tripsContainer"></div> -->
+    <div class="container">
+        <h3>Upcoming Trips</h3>
+        <div id="upcomingTrips" class="trip-section"></div>
+
+        <h3>Ongoing Trips</h3>
+        <div id="ongoingTrips" class="trip-section"></div>
+
+        <h3>Completed/Cancelled Trips</h3>
+        <div id="completedTrips" class="trip-section"></div>
+    </div>
+    <div id="partnerModal" class="modal">
+        <div class="modal-content">
+            <h3>Add Travel Partners</h3>
+            <input type="text" id="partnerEmails" placeholder="Enter emails, comma-separated" />
+            <div class="button-container">
+                <button id="confirmAddButton">Add</button>
+                <button onclick="closePartnerModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

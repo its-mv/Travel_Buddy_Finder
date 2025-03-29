@@ -100,3 +100,173 @@ exports.getTrips = (req, res) => {
         res.json(trips);
     });
 };
+
+// Fetch trips categorized
+exports.getUserTrips = async (req, res) => {
+    const uid = req.params.uid;
+
+    if (!uid) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+
+    try {
+        const query = `
+            SELECT *, 
+            CASE 
+                WHEN status IN ('completed', 'cancelled') OR rdate < CURDATE() THEN 'completed/cancelled' 
+                WHEN rdate = CURDATE() THEN 'ongoing' 
+                ELSE 'upcoming' 
+            END AS trip_category
+            FROM trip WHERE uid = ? ORDER BY date ASC`;
+
+        db.query(query, [uid], (err, results) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json(results);
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Cancel Trip (For Upcoming & Ongoing trips)
+exports.cancelTrip = async (req, res) => {
+    const { tid } = req.params;
+    try {
+        const query = `UPDATE trip SET status = 'cancelled' WHERE tid = ? AND status NOT IN ('completed', 'cancelled')`;
+        db.query(query, [tid], (err, result) => {
+            if (err) return res.status(500).json({ error: err.message });
+            if (result.affectedRows === 0) return res.status(400).json({ message: "Trip cannot be cancelled." });
+            res.json({ message: "Trip cancelled successfully." });
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Add Travel Partners
+// exports.addTravelPartners = async (req, res) => {
+//     const { tid, emails } = req.body;
+
+//     if (!tid || !emails || !Array.isArray(emails) || emails.length === 0) {
+//         return res.status(400).json({ error: "Invalid trip ID or email list" });
+//     }
+
+//     try {
+//         const userQuery = `SELECT uid FROM user WHERE email IN (?)`;
+//         db.query(userQuery, [emails], (err, users) => {
+//             // if (err) return res.status(500).json({ error: err.message });
+//             if (err) {
+//                 console.error("Error fetching user IDs:", err);
+//                 return res.status(500).json({ error: "Database error", details: err.message });
+//             }
+
+//             if (!users || users.length === 0) {
+//                 console.error("No users found for emails:", emails);
+//                 return res.status(400).json({ message: "No valid emails found." });
+//             }
+
+//             const partnerInserts = users.map(user => [tid, user.uid]);
+//             const insertQuery = `INSERT INTO completed_trip_traveller (tid, travellers_id) VALUES ?`;
+
+//             db.query(insertQuery, [partnerInserts], (err) => {
+//                 if (err) {
+//                     console.error("Error inserting travel partners:", err);
+//                     return res.status(500).json({ error: "Database error", details: err.message });
+//                 }
+//                 console.log("Travel partners added successfully:", partnerInserts);
+//                 res.json({ message: "Travel partners added successfully." });
+//             });
+//         });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// };
+exports.addTravelPartners = async (req, res) => {
+    const { tid, emails } = req.body;
+
+    if (!tid || !emails || !Array.isArray(emails) || emails.length === 0) {
+        return res.status(400).json({ error: "Invalid trip ID or email list" });
+    }
+
+    try {
+        const userQuery = `SELECT uid FROM user WHERE email IN (?)`;
+        db.query(userQuery, [emails], (err, users) => {
+            if (err) {
+                console.error("Error fetching user IDs:", err);
+                return res.status(500).json({ error: "Database error", details: err.message });
+            }
+
+            if (!users || users.length === 0) {
+                return res.status(400).json({ message: "No valid emails found." });
+            }
+
+            const partnerInserts = users.map(user => [tid, user.uid]);
+
+            // Delete old partners before inserting new ones
+            const deleteQuery = `DELETE FROM completed_trip_traveller WHERE tid = ?`;
+
+            db.query(deleteQuery, [tid], (deleteErr) => {
+                if (deleteErr) {
+                    console.error("Error deleting old partners:", deleteErr);
+                    return res.status(500).json({ error: "Error removing existing partners." });
+                }
+
+                // Insert new travel partners
+                const insertQuery = `INSERT INTO completed_trip_traveller (tid, travellers_id) VALUES ?`;
+                db.query(insertQuery, [partnerInserts], (insertErr) => {
+                    if (insertErr) {
+                        console.error("Error inserting travel partners:", insertErr);
+                        return res.status(500).json({ error: "Database error", details: insertErr.message });
+                    }
+                    res.json({ message: "Travel partners updated successfully." });
+                });
+            });
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Get Travel Partners
+exports.getTravelPartners = async (req, res) => {
+    const { tid } = req.params;
+
+    if (!tid) return res.status(400).json({ error: "Trip ID is required" });
+
+    try {
+        const query = `
+            SELECT u.email 
+            FROM completed_trip_traveller ct
+            JOIN user u ON ct.travellers_id = u.uid
+            WHERE ct.tid = ?
+        `;
+
+        db.query(query, [tid], (err, results) => {
+            if (err) {
+                console.error("Error fetching travel partners:", err);
+                return res.status(500).json({ error: "Database error" });
+            }
+
+            const partnerEmails = results.map(row => row.email);
+            res.json({ partners: partnerEmails });
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+// Mark Trip as Completed
+exports.completeTrip = async (req, res) => {
+    const { trip_owner_id, tid, sdate, edate } = req.body;
+    try {
+        const query = `INSERT INTO completed_trip (trip_owner_id, tid, sdate, edate) VALUES (?, ?, ?, ?)`;
+        db.query(query, [trip_owner_id, tid, sdate, edate], (err) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ message: "Trip marked as completed." });
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+

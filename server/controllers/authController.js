@@ -116,7 +116,6 @@ exports.getUserTravelStyles = (req, res) => {
     });
 };
 
-
 exports.feedback = (req, res) => {
     res.json({
         message: "Feedback received successfully",

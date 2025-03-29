@@ -5,4 +5,5 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 router.post("/add", authMiddleware, tripController.addTrip);
 router.get("/trips",authMiddleware, tripController.getTrips);
+
 module.exports = router;

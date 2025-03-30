@@ -31,16 +31,31 @@ document.getElementById("login").addEventListener("submit", async (event) => {
         console.log("Name Stored:", localStorage.getItem("fname"), localStorage.getItem("lname"));
         
         if (data.redirect) { 
-            window.location.href = data.redirect;
-            alert("Login successful..!!");
+            showPopupMessage("Login successful..!!", true);
+            setTimeout(() => {
+                window.location.href = data.redirect;
+            }, 1500);
         } else {
-            alert("Login Failed..!!");
+            showPopupMessage(error.message, false);
         }
 
     } catch (error) {
-        alert(error.message);
+        showPopupMessage(error.message, false);
     }
 });
+
+function showPopupMessage(message, isSuccess = true) {
+    const popup = document.getElementById("popupMessage");
+    popup.textContent = message;
+    popup.style.backgroundColor = isSuccess ? "blue" : "red";
+    popup.classList.remove("hidden");
+    popup.classList.add("visible");
+
+    setTimeout(() => {
+        popup.classList.remove("visible");
+        popup.classList.add("hidden");
+    }, 3000); // Hide after 3 seconds
+}
 
 document.getElementById("togglePassword").addEventListener("click", function () {
     togglePasswordVisibility("password", "togglePassword");
@@ -66,7 +81,7 @@ lottie.loadAnimation({
     renderer: 'svg',
     loop: true,
     autoplay: true,
-    path: '../assets/google.json'  // Ensure correct path
+    path: '../assets/google.json'  
 });
 lottie.loadAnimation({
     container: document.getElementById('instagram-logo'),

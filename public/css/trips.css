@@ -135,17 +135,93 @@ button:hover {
 
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0;
+    padding: 0;
+    justify-content: space-between;
     background-color: #f5f6f7;
 }
 
+/* Header */
+header .container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    background: #5182ED;
+    /* justify-content: space-between; */
+    color: white;
+    padding: 15px 0;
+    gap: 15px;
+    /* display: flex; */
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.header .logo {
+    margin: 0;
+    margin-left: 30px !important;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.link-home {
+    text-decoration: none;
+    color: white;
+}
+
+.slogan img{
+    margin-right: 30px;
+    margin-top: 10px;
+    height: 35px;
+    width: auto;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+/* navigation */
+.nav {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    /* justify-content: space-around; */
+    align-items: center;
+    padding: 20px 0px;
+    height: 50px;
+    z-index: 1000;
+}
+
+.nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+    /* height: 50px; */
+}
+
+.nav h1 {
+    left: 45%;
+    position: absolute;
+}
+
+/* Main content */
 h2, h3 {
     color: #333;
 }
 
-.container {
+main .container {
     background-color: #fff;
     padding: 20px;
+    margin: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;

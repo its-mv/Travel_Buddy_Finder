@@ -4,8 +4,20 @@
     <title>My Trips</title>
     <link rel="stylesheet" href="../css/trips.css">
     <script src="../js/trips.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 </head>
 <body>
+    <header class="header">
+        <!-- Header -->
+        <div class="container">
+            <h1 class="logo text-left"><a class="link-home" href="../html/home.html">TripBuddy</a></h1>
+            <div class="header-icons">
+                <div class="slogan">
+                    <img src="../assets/slogan.png" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
     <!-- <h2>Upcoming Trips</h2>
     <div id="upcomingTrips"></div>
 
@@ -17,25 +29,32 @@
 
     <!-- <h2>My Trips</h2>
     <div id="tripsContainer"></div> -->
-    <div class="container">
-        <h3>Upcoming Trips</h3>
-        <div id="upcomingTrips" class="trip-section"></div>
+    <main>
+        <div class="container">
+            <div class="nav">
+                <a href="../html/dashboard.html"><i class="fas fa-arrow-left"></i></a>
+                <h1 class="text-center">My Trips</h1>
+            </div>
+            <hr>
+            <h3>Upcoming Trips</h3>
+            <div id="upcomingTrips" class="trip-section"></div>
 
-        <h3>Ongoing Trips</h3>
-        <div id="ongoingTrips" class="trip-section"></div>
+            <h3>Ongoing Trips</h3>
+            <div id="ongoingTrips" class="trip-section"></div>
 
-        <h3>Completed/Cancelled Trips</h3>
-        <div id="completedTrips" class="trip-section"></div>
-    </div>
-    <div id="partnerModal" class="modal">
-        <div class="modal-content">
-            <h3>Add Travel Partners</h3>
-            <input type="text" id="partnerEmails" placeholder="Enter emails, comma-separated" />
-            <div class="button-container">
-                <button id="confirmAddButton">Add</button>
-                <button onclick="closePartnerModal()">Cancel</button>
+            <h3>Completed/Cancelled Trips</h3>
+            <div id="completedTrips" class="trip-section"></div>
+        </div>
+        <div id="partnerModal" class="modal">
+            <div class="modal-content">
+                <h3>Add Travel Partners</h3>
+                <input type="text" id="partnerEmails" placeholder="Enter emails, comma-separated" />
+                <div class="button-container">
+                    <button id="confirmAddButton">Add</button>
+                    <button onclick="closePartnerModal()">Cancel</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>

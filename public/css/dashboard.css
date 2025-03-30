@@ -19,8 +19,6 @@ body {
     color: white;
     padding: 15px 0;
     display: flex;
-    /* justify-content: space-between; */
-    /* align-items: center; */
 }
 
 .header .logo {
@@ -199,6 +197,11 @@ button {
 }
 
 /* Upcoming trip */
+.link-trips {
+    text-decoration: none;
+    color: black;
+    text-decoration: underline !important;
+}
 .trip-card {
     border: 1px solid #ddd;
     border-radius: 10px;

@@ -6,11 +6,9 @@ body {
 }
 
 .container {
-    /* max-width: 1100px; */
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
 }
 
 /* Header */
@@ -318,6 +316,71 @@ button {
 .bottom {
     height: auto;
 }
+
+/* Footer */
+.footer {
+    background: #5182ed; 
+    color: white;
+    padding: 40px 60px 20px 60px;
+    text-align: left;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+.footer-section h3, .footer-section h4 {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.footer-section p {
+    color: #f5f6f7;
+    font-size: 14px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 8px 0;
+}
+
+.footer-section ul li a {
+    color: #f5f6f7;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #f5f6f7;
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

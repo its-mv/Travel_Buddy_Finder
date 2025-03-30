@@ -186,6 +186,14 @@ body {
     color: blue;
     font-weight: bold;
 }
+.view-more-reviews {
+    margin-top: 10px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+}
 
 /* CTA */
 .cta {

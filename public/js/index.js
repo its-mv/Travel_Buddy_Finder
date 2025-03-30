@@ -1,29 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let allReviews = []; // Store all fetched reviews
+    let showingAllReviews = false; // Toggle flag
+  
+    function renderReviews(data, limit = 3) {
+        const container = document.getElementById("testimonial-container");
+        container.innerHTML = "";
+  
+        const displayData = showingAllReviews ? data.slice(0, 50) : data.slice(0, limit);
+        displayData.forEach(feedback => {
+            const card = document.createElement("div");
+            card.classList.add("testimonial-card");
+            card.innerHTML = `
+                <p>"${feedback.description}"</p>
+                <h4>${feedback.name}</h4>
+                <span>${feedback.city},</span>
+                <span>${feedback.country}</span>
+            `;
+            container.appendChild(card);
+        });
+  
+        const viewMoreButton = document.querySelector(".view-more-reviews");
+        if (data.length > limit) {
+            viewMoreButton.style.display = "block";
+            viewMoreButton.textContent = showingAllReviews ? "Show Less" : "View More Reviews";
+        } else {
+            viewMoreButton.style.display = "none";
+        }
+    }
+  
     fetch("http://localhost:5000/api/feedback")
         .then(response => response.json())
         .then(data => {
-            console.log("Fetched Data:", data); // Debugging line
-
-            if (!Array.isArray(data)) {
-                throw new Error("Invalid response format");
-            }
-
-            const container = document.getElementById("testimonial-container");
-            container.innerHTML = "";
-            data.forEach(feedback => {
-                const card = document.createElement("div");
-                card.classList.add("testimonial-card");
-                card.innerHTML = `
-                    <p>"${feedback.description}"</p>
-                    <h4>${feedback.name}</h4>
-                    <span>${feedback.city},</span>
-                    <span>${feedback.country}</span>
-                    `;
-                container.appendChild(card);
-            });
+            console.log("Fetched Reviews:", data);
+            allReviews = data; // Store full data
+            renderReviews(allReviews); // Show initial 6 reviews
         })
         .catch(error => console.error("Error fetching testimonials:", error));
-});
+  
+    document.querySelector(".view-more-reviews").addEventListener("click", function (event) {
+        event.preventDefault();
+        showingAllReviews = !showingAllReviews; // Toggle state
+        renderReviews(allReviews);
+    });
+  });
+  
 
 document.addEventListener("DOMContentLoaded", function () {
     let allDestinations = []; // Store all fetched destinations

@@ -93,18 +93,106 @@ main {
 
 /* Right Section */
 .right {
-    margin: 10px 5px 5px 5px;
-    padding: 5px;
-    width: 75%;
+    width: 80%;
     height: auto;
     text-align: center;
 }
+/* Hero Section */
+.hero {
+    position: relative;
+    background: url('hero-image.jpg') no-repeat center center/cover;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #5182ED, #8EC5FC);
+    text-align: center;
+    color: white;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+/* welcome */
+.welcome {
+    background-color: #fff;
+    padding: 20px;
+}
+/* Features, Destinations, Testimonials */
+.features, .destinations, .testimonials, .cta {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: white;
+}
+.features, .testimonials {
+    background-color: #f5f6f7;
+}
+.feature-grid, .testimonial-grid, #popular-destinations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+.feature-card, .testimonial-card {
+    background: white;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.feature-card p {
+    text-align: left;
+}
+.feature-card h4 {
+    font-size: 20px;
+}
+.destination-card {
+    background-color: #f5f6f7; /* Matches first image */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    width: 250px;
+    margin: 10px auto;
+}
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.view-all {
+    margin-top: 10px;
+    display: block;
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+}
+.view-more-reviews {
+    margin-top: 10px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+}
+
 
 /* Footer */
 .footer {
     background: #5182ED; 
     color: white;
-    padding: 40px 60px 0px 60px;
+    padding: 40px 60px 20px 60px;
     text-align: left;
 }
 
@@ -162,7 +250,6 @@ main {
     border-top: 1px solid #444;
     padding-top: 10px;
     margin-bottom: 0px;
-    padding-bottom: 15px;
 }
 
 /* Media Queries */

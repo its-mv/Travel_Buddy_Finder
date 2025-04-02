@@ -1,0 +1,111 @@
+/* body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
+#connections {
+    width: 30%;
+    background: #f4f4f4;
+    padding: 15px;
+    border-right: 2px solid #ddd;
+    overflow-y: auto;
+}
+
+#connections div {
+    padding: 10px;
+    margin: 5px 0;
+    background: #ddd;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#connections div:hover {
+    background: #bbb;
+}
+
+#chat-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    max-height: 80vh;
+}
+
+#chat-messages div {
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+.sent {
+    background: #0084ff;
+    color: white;
+    align-self: flex-end;
+}
+
+.received {
+    background: #e4e6eb;
+    align-self: flex-start;
+}
+
+#messageInput {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 18%;
+    padding: 10px;
+    background: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #005bb5;
+}
+ */
+
+ body { font-family: Arial, sans-serif; }
+ #connections div { cursor: pointer; padding: 10px; border-bottom: 1px solid #ddd; }
+ #chat-box { border: 1px solid #ddd; padding: 10px; margin-top: 20px; }
+ #messages div { padding: 5px; margin: 5px 0; background: #f1f1f1; }
+ /* .sent { background-color: #dcf8c6; text-align: right; } */
+ /* .received { background-color: #f1f1f1; text-align: left; } */
+ 
+ .message {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 8px;
+    max-width: 60%;
+}
+
+.sent {
+    background-color: #DCF8C6;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.received {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+    text-align: left;
+}

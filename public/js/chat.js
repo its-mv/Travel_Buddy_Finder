@@ -11,16 +11,16 @@ fetch(`http://localhost:5000/api/chat/connections/${userId}`)
         data.forEach(user => {
             const div = document.createElement("div");
             div.innerText = `${user.fname} ${user.lname}`;
-            div.onclick = () => startChat(user.uid, user.fname);
+            div.onclick = () => startChat(user.uid, user.fname, user.lname);
             connectionsDiv.appendChild(div);
         });
     });
 
 let currentReceiverId = null;
 
-function startChat(receiverId, receiverName) {
+function startChat(receiverId, receiverFName, receiverLName) {
     currentReceiverId = receiverId;
-    document.getElementById("chat-header").innerText = `Chat with ${receiverName}`;
+    document.getElementById("chat-header").innerText = `${receiverFName} ${receiverLName}`;   
 
     fetch(`http://localhost:5000/api/chat/messages/${userId}/${receiverId}`)
         .then(res => res.json())

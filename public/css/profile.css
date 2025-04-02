@@ -15,6 +15,7 @@ body {
     padding-top: 90px;
 }
 
+/* header */
 .header {
     width: 100%;
     display: flex;
@@ -40,6 +41,7 @@ body {
     text-align: center;
 }
 
+/* profile */
 .profile-container {
     position: relative;
     background: white;

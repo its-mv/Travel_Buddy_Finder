@@ -3,7 +3,7 @@ const db = require("../config/db");
 exports.getUserConnections = (req, res) => {
     const { uid } = req.params;
     const query = `
-        SELECT u.uid, u.fname, u.lname FROM connections 
+        SELECT DISTINCT u.uid, u.fname, u.lname FROM connections 
         JOIN user u ON (connections.sender_id = u.uid OR connections.receiver_id = u.uid)
         WHERE (connections.sender_id = ? OR connections.receiver_id = ?) AND connections.status = 'accepted' AND u.uid != ?;
     `;

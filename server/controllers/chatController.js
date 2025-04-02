@@ -39,13 +39,6 @@ exports.editMessage = (req, res) => {
     });
 };
 
-// exports.deleteMessage = (req, res) => {
-//     const { id } = req.params;
-//     db.query("DELETE FROM messages WHERE id = ?", [id], (err) => {
-//         if (err) return res.status(500).json({ error: "DB error" });
-//         res.json({ success: true, message: "Message deleted successfully" });
-//     });
-// };
 exports.deleteMessage = (req, res) => {
     const { id } = req.params;
 

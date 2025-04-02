@@ -20,7 +20,9 @@ let currentReceiverId = null;
 
 function startChat(receiverId, receiverFName, receiverLName) {
     currentReceiverId = receiverId;
-    document.getElementById("chat-header").innerText = `${receiverFName} ${receiverLName}`;   
+    document.getElementById("chat-header").innerText = `${receiverFName} ${receiverLName}`;
+    
+    document.getElementById("chat-box").style.display = "block";
 
     fetch(`http://localhost:5000/api/chat/messages/${userId}/${receiverId}`)
         .then(res => res.json())

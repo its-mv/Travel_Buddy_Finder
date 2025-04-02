@@ -29,11 +29,19 @@ body {
     text-align: center;
 }
 
-#connections { 
+/* chat */
+.container {
+    display: flex;
     margin-top: 100px;
+    justify-content: space-between;
+}
+
+#connections { 
+    width: 20%;
 }
 
 #connections div {
+    border: 1px solid #ddd;
     cursor: pointer; 
     padding: 10px; 
     border-bottom: 1px solid #ddd; 
@@ -41,37 +49,118 @@ body {
 
 #chat-header { 
     font-weight: bold; 
-    margin-bottom: 10px; 
-    padding: 15px 0px;
+    margin-bottom: 5px; 
+    padding: 20px 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
- 
+
 #chat-box { 
+    display: none;
     border: 1px solid #ddd; 
-    padding: 10px; 
-    margin-top: 20px; 
+    width: 78%;
 }
 
 #messages div { 
     padding: 5px; 
-    margin: 5px 0; 
-    background: #f1f1f1; 
+    margin: 5px 10px; 
+}
+
+#messages {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 62vh;
+    width: 100%;
+    scrollbar-width: none;
 }
  
+#messages::-webkit-scrollbar {
+    display: none; 
+}
+
 .message {
     padding: 8px;
-    margin: 5px;
-    border-radius: 8px;
-    max-width: 60%;
+    margin: 10px;
+    font-size: 16px;
+    max-width: 50%;
+    min-width: 35%;
 }
 
 .sent {
-    background-color: f5f6f7 !important;
+    background: linear-gradient(to right, #8EC5FC, #5182ED) !important;  
     align-self: flex-end;
-    text-align: right;
+    border-radius: 7px 0px 7px 7px;
+    position: relative;
+}
+
+.sent::after {
+    content: "";
+    position: absolute;
+    right: -7px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    background-color: #5182ED;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
 .received {
-    background: linear-gradient(to right, #8EC5FC, #5182ED) !important;    
+    background-color: #e5e5e5 !important;
     align-self: flex-start;
-    text-align: left;
+    border-radius: 0px 7px 7px 7px;
+    position: relative;
+}
+
+.received::after {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    background-color: #e5e5e5;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+/* Input Section */
+#messageInput {
+    width: 88%;
+    padding: 10px;
+    margin: 2px;
+    border: 3px solid #f5f6f7;
+    outline: none;
+}
+#messageInput:focus {
+    border: 3px solid #5182ED;
+}
+.send-button {
+    padding: 12.5px;
+    margin: 2px;
+    margin-top: 5px;
+    width: 8%;
+    border: none;
+    color: white;
+    background-color: #5182ED;
+}
+.fa-paper-plane:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.4);
+    cursor: pointer;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    #connections {
+        width: 100%;
+    }
+    #chat-box {
+        width: 100%;
+    }
+    .message {
+        max-width: 75%;
+        min-width: 50%;
+    }
 }

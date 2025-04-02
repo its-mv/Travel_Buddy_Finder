@@ -5,23 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <link rel="stylesheet" href="../css/chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <!-- <h2>Messages</h2> -->
      
 <header>
     <div class="header">
-        <a href="dashboard.html"><i class="fas fa-arrow-left"></i></a>
+        <a href="../html/home.html"><i class="fas fa-arrow-left"></i></a>
         <h1 class="text-center">Messages</h1>
     </div>
 </header>
-
-    <div id="connections"></div>
-    <div id="chat-box">
-        <div id="chat-header"></div>
-        <div id="messages"></div>
-        <input type="text" id="messageInput" placeholder="Type a message...">
-        <button onclick="sendMessage()">Send</button>
+    <div class="container">
+        <div id="connections"></div>
+        <div id="chat-box">
+            <div id="chat-header"></div>
+            <div id="messages"></div>
+            <div class="messageSection" id="messageSection">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button onclick="sendMessage()" class="send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
     </div>
     <script src="http://localhost:5000/socket.io/socket.io.js"></script>
     <script src="../js/chat.js"></script>

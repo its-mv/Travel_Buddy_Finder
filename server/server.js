@@ -51,6 +51,14 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on("editMessage", ({ messageId, newText }) => {
+        io.emit("messageEdited", { messageId, newText });
+    });
+
+    socket.on("deleteMessage", ({ messageId }) => {
+        io.emit("messageDeleted", { messageId });
+    });
+
     socket.on("disconnect", () => {
         // console.log("❌ User disconnected");
     });

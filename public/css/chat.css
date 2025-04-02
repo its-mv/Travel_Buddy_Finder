@@ -41,10 +41,23 @@ body {
 }
 
 #connections div {
-    border: 1px solid #ddd;
     cursor: pointer; 
     padding: 10px; 
-    border-bottom: 1px solid #ddd; 
+}
+
+.user-item {
+    border: 1px solid #ddd;
+    width: 95%;
+}
+
+#userList {
+    margin: 0;
+    padding: 10px 0px !important;
+}
+
+#searchUser {
+    width: 96%;
+    padding: 7px;
 }
 
 #chat-header { 
@@ -147,6 +160,43 @@ body {
     transform: scale(1.4);
     cursor: pointer;
 }
+
+/* Delete and edit messagees */
+.message-options {
+    position: absolute;
+    background: white;
+    margin: 40px 0px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none; 
+}
+/*  */
+.message-options button {
+    margin: 2px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    text-align: left;
+    margin: 5px 0px;
+    background: #f0f0f0;
+    border-radius: 3px;
+}
+
+.menu-btn {
+    gap: 10px;
+    /* width: max-content; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.message-options button:hover {
+    background: #ddd;
+}
+
 
 /* Media Queries */
 @media screen and (max-width: 768px) {

@@ -30,3 +30,31 @@ exports.sendMessage = (req, res) => {
         res.json({ success: true, message: "Message sent." });
     });
 };
+
+exports.editMessage = (req, res) => {
+    const { messageId, newText } = req.body;
+    db.query("UPDATE messages SET message = ? WHERE id = ?", [newText, messageId], (err) => {
+        if (err) return res.status(500).json({ error: "DB error" });
+        res.json({ success: true, message: "Message updated successfully" });
+    });
+};
+
+// exports.deleteMessage = (req, res) => {
+//     const { id } = req.params;
+//     db.query("DELETE FROM messages WHERE id = ?", [id], (err) => {
+//         if (err) return res.status(500).json({ error: "DB error" });
+//         res.json({ success: true, message: "Message deleted successfully" });
+//     });
+// };
+exports.deleteMessage = (req, res) => {
+    const { id } = req.params;
+
+    db.query(
+        "UPDATE messages SET deleted_message = message, message = 'Deleted Message' WHERE id = ? AND message != 'Deleted Message'",
+        [id],
+        (err) => {
+            if (err) return res.status(500).json({ error: "DB error" });
+            res.json({ success: true, message: "Message deleted successfully" });
+        }
+    );
+};

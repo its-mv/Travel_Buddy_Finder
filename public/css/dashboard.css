@@ -87,6 +87,11 @@ main .container {
     font-weight: bold;
     font-style: italic;
 }
+.left .gender {
+    font-size: 15px;
+    /* font-weight: bold; */
+    font-style: italic;
+}
 .left .style-tag {
     display: inline-block;
     background-color: #C9D6F5;

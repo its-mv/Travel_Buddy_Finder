@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const token = localStorage.getItem("token");
         const uid = localStorage.getItem("uid");
-
+        
         if (!token) {
             alert("User not logged in!");
             window.location.href = "../html/index.html";

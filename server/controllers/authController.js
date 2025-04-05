@@ -6,17 +6,17 @@ const db = require("../config/db"); // Adjust the path if needed
 
 exports.signup = async (req, res) => {
     try {
-        const { fname, lname, phone, email, password, dob, image, name } = req.body;
+        const { fname, lname, gender, phone, email, password, dob, image, name } = req.body;
         // const image = req.file ? req.file.buffer : null;
 
-        if (!fname || !lname || !phone || !email || !password || !dob || !name) {
+        if (!fname || !lname || !gender || !phone || !email || !password || !dob || !name) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        User.createUser({ fname, lname, phone, email, password: hashedPassword, dob, image, name }, (err, result) => {
+        User.createUser({ fname, lname, gender, phone, email, password: hashedPassword, dob, image, name }, (err, result) => {
             if (err) {
                 console.error("Signup Error:", err);
                 if (err.code === "ER_DUP_ENTRY") {
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
 
             if(password === user.name){
                 // Generate JWT token
-                const token = jwt.sign({ uid: user.uid, fname: user.fname, lname: user.lname }, process.env.JWT_SECRET, { expiresIn: "1d" });
+                const token = jwt.sign({ gender: user.gender, uid: user.uid, fname: user.fname, lname: user.lname }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
                 console.log("Generated token:", token);
                 console.log("User data:", user);
@@ -63,6 +63,7 @@ exports.login = async (req, res) => {
                 res.json({ 
                     message: "Login successful", 
                     token,
+                    gender: user.gender,
                     uid: user.uid,
                     fname: user.fname, 
                     lname: user.lname,  
@@ -87,7 +88,7 @@ exports.getUserById = (req, res) => {
         if (!uid) {
             return res.status(400).json({ error: "User ID is required" });
         }
-    const query = "SELECT home_city, country FROM user_full_info WHERE uid = ?";
+    const query = "SELECT home_city, country, gender FROM user_full_info WHERE uid = ?";
 
     db.query(query, [uid], (err, results) => {
         if (err) return res.status(500).json({ error: "Database error" });
@@ -132,7 +133,7 @@ exports.getUserTrips = (req, res) => {
 
     const query = `
         SELECT 
-            t.tid, t.tname, t.from_city, t.from_country, 
+            t.tid, t.tname, t.gender, t.from_city, t.from_country, 
             t.to_city, t.to_country, t.date, t.rdate, 
             t.duration, t.budget, t.mode, t.pace, 
             t.accomodation, t.description, t.time,

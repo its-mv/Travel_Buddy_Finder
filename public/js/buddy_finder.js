@@ -137,6 +137,9 @@ async function fetchTrips() {
         }
 
         const trips = await response.json();
+
+        allTrips = trips;
+
         console.log("Received Data:", trips);
 
         if (!Array.isArray(trips)) {
@@ -146,55 +149,149 @@ async function fetchTrips() {
         const travelersList = document.getElementById("travelersList");
         travelersList.innerHTML = ""; // Clear previous data
 
-        trips.forEach(trip => {
-            const card = document.createElement("div");
-            card.classList.add("traveler-card");
+        // trips.forEach(trip => {
+        //     const card = document.createElement("div");
+        //     card.classList.add("traveler-card");
 
-            // 🆕 Interests Container
-            const interestsDiv = document.createElement("div");
-            interestsDiv.classList.add("interests-container");
+        //     // 🆕 Interests Container
+        //     const interestsDiv = document.createElement("div");
+        //     interestsDiv.classList.add("interests-container");
 
-            if (trip.interests.length > 0) {
-                trip.interests.forEach(interest => {
-                    const interestTag = document.createElement("span");
-                    interestTag.classList.add("interest-tag");
-                    interestTag.textContent = interest;
-                    interestsDiv.appendChild(interestTag);
-                });
-            } else {
-                interestsDiv.innerHTML = `<span class="no-interests">No interests added</span>`;
-            }
+        //     if (trip.interests.length > 0) {
+        //         trip.interests.forEach(interest => {
+        //             const interestTag = document.createElement("span");
+        //             interestTag.classList.add("interest-tag");
+        //             interestTag.textContent = interest;
+        //             interestsDiv.appendChild(interestTag);
+        //         });
+        //     } else {
+        //         interestsDiv.innerHTML = `<span class="no-interests">No interests added</span>`;
+        //     }
 
-            // 🆕 View More Button
-            const viewMoreButton = document.createElement("button");
-            viewMoreButton.classList.add("view-more-btn");
-            viewMoreButton.textContent = "View More";
-            viewMoreButton.addEventListener("click", () => showTripDetails(trip));
+        //     // 🆕 View More Button
+        //     const viewMoreButton = document.createElement("button");
+        //     viewMoreButton.classList.add("view-more-btn");
+        //     viewMoreButton.textContent = "View More";
+        //     viewMoreButton.addEventListener("click", () => showTripDetails(trip));
 
-            // 🆕 Connect Button
-            const connectButton = document.createElement("button");
-            connectButton.classList.add("connect-btn");
-            connectButton.textContent = "Connect";
-            connectButton.addEventListener("click", () => sendConnectionRequest(trip));
+        //     // 🆕 Connect Button
+        //     const connectButton = document.createElement("button");
+        //     connectButton.classList.add("connect-btn");
+        //     connectButton.textContent = "Connect";
+        //     connectButton.addEventListener("click", () => sendConnectionRequest(trip));
 
-            // 🏗️ Add content to the card
-            card.innerHTML = `
-                <h3>${trip.name}, ${trip.age}</h3>
-                <p><i class="fas fa-map-marker-alt"></i> ${trip.location}</p>
-                <p><i class="fas fa-plane"></i> Traveling to <strong>${trip.destination}</strong></p>
-                <p><i class="fas fa-calendar-alt"></i> ${formatDate(trip.date)}</p>
-                <p><i class="fas fa-dollar-sign"></i> ${trip.budget}</p>
-                <p>${trip.description}</p>
-            `;
+        //     // 🏗️ Add content to the card
+        //     card.innerHTML = `
+        //         <h3>${trip.name}, ${trip.age}</h3>
+        //         <p><i class="fas fa-map-marker-alt"></i> ${trip.location}</p>
+        //         <p><i class="fas fa-plane"></i> Traveling to <strong>${trip.destination}</strong></p>
+        //         <p><i class="fas fa-calendar-alt"></i> ${formatDate(trip.date)}</p>
+        //         <p><i class="fas fa-dollar-sign"></i> ${trip.budget}</p>
+        //         <p>${trip.description}</p>
+        //     `;
 
-            card.appendChild(interestsDiv); // 🆕 Append interests
-            card.appendChild(viewMoreButton);
-            card.appendChild(connectButton); // 🆕 Append Connect button
-            travelersList.appendChild(card);
-        });
+        //     card.appendChild(interestsDiv); // 🆕 Append interests
+        //     card.appendChild(viewMoreButton);
+        //     card.appendChild(connectButton); // 🆕 Append Connect button
+        //     travelersList.appendChild(card);
+        // });
+        displayTrips(allTrips);
+
     } catch (error) {
         console.error("Error fetching trips:", error);
     }
 }
 
+let allTrips = [];
+
 fetchTrips();
+
+function displayTrips(trips) {
+    const travelersList = document.getElementById("travelersList");
+    travelersList.innerHTML = "";
+
+    trips.forEach(trip => {
+        const card = document.createElement("div");
+        card.classList.add("traveler-card");
+
+        const interestsDiv = document.createElement("div");
+        interestsDiv.classList.add("interests-container");
+
+        if (trip.interests.length > 0) {
+            trip.interests.forEach(interest => {
+                const interestTag = document.createElement("span");
+                interestTag.classList.add("interest-tag");
+                interestTag.textContent = interest;
+                interestsDiv.appendChild(interestTag);
+            });
+        } else {
+            interestsDiv.innerHTML = `<span class="no-interests">No interests added</span>`;
+        }
+
+        const viewMoreButton = document.createElement("button");
+        viewMoreButton.classList.add("view-more-btn");
+        viewMoreButton.textContent = "View More";
+        viewMoreButton.addEventListener("click", () => showTripDetails(trip));
+
+        const connectButton = document.createElement("button");
+        connectButton.classList.add("connect-btn");
+        connectButton.textContent = "Connect";
+        connectButton.addEventListener("click", () => sendConnectionRequest(trip));
+
+        card.innerHTML = `
+            <h3>${trip.name}, ${trip.age}</h3>
+            <p><i class="fas fa-map-marker-alt"></i> ${trip.location}</p>
+            <p><i class="fas fa-plane"></i> Traveling to <strong>${trip.destination}</strong></p>
+            <p><i class="fas fa-calendar-alt"></i> ${formatDate(trip.date)}</p>
+            <p><i class="fas fa-dollar-sign"></i> ${trip.budget}</p>
+            <p>${trip.description}</p>
+        `;
+
+        card.appendChild(interestsDiv);
+        card.appendChild(viewMoreButton);
+        card.appendChild(connectButton);
+        travelersList.appendChild(card);
+    });
+}
+
+document.getElementById("search").addEventListener("input", function () {
+    const query = this.value.toLowerCase();
+    const filteredTrips = allTrips.filter(trip => {
+        const queryLower = query.toLowerCase();
+        const [fullMonth, shortMonth] = getMonthNames(trip.date);
+    
+        return (
+            trip.destination?.toLowerCase().includes(queryLower) ||
+            trip.name?.toLowerCase().includes(queryLower) ||
+            trip.location?.toLowerCase().includes(queryLower) ||
+            trip.from_city?.toLowerCase().includes(queryLower) ||
+            trip.from_country?.toLowerCase().includes(queryLower) ||
+            trip.to_city?.toLowerCase().includes(queryLower) ||
+            trip.to_country?.toLowerCase().includes(queryLower) ||
+            trip.date?.toLowerCase?.().includes?.(queryLower) ||
+            fullMonth.includes(queryLower) ||
+            shortMonth.includes(queryLower) ||
+            (Array.isArray(trip.interests) && trip.interests.some(interest =>
+                interest.toLowerCase().includes(queryLower)
+            )) ||
+            (Array.isArray(trip.activities) && trip.activities.some(activity =>
+                activity.toLowerCase().includes(queryLower)
+            ))
+        );
+    });
+
+    displayTrips(filteredTrips);
+});
+
+const getMonthNames = (dateStr) => {
+    const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const date = new Date(dateStr);
+    if (isNaN(date)) return [];
+    const full = months[date.getMonth()];
+    const short = full.slice(0, 3);
+    return [full.toLowerCase(), short.toLowerCase()];
+  };
+  

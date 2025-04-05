@@ -23,6 +23,7 @@ document.getElementById("login").addEventListener("submit", async (event) => {
         }
 
         localStorage.setItem("token", data.token);
+        localStorage.setItem("gender", data.gender);
         localStorage.setItem("fname", data.fname); 
         localStorage.setItem("lname", data.lname);
         localStorage.setItem("uid", data.uid);

@@ -49,7 +49,7 @@ body {
     background-color: white;
     transition: all 0.3s ease-in-out;
 }
-.search-container {
+.search-container, .link {
     position: relative;
     display: flex;
     align-items: center;
@@ -262,6 +262,14 @@ main {
 @media screen and (max-width: 768px) {
     .traveler-card {
         width: 100%; /* Adjust card width for smaller screens */
+    }
+    .header .container {
+        display: block;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .search-container {
+        margin: 5px 0px;
     }
 }
 

@@ -31,11 +31,12 @@ body {
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .left-panel {
     width: 50%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -118,6 +119,10 @@ button.submit {
     border-radius: 5px;
 }
 
+#toggle-form {
+    color: #5182ED !important;
+}
+
 #toggleConfirmPassword,
 #togglePassword {
     position: absolute;
@@ -138,14 +143,24 @@ button.submit {
 
 .right-panel {
     width: 50%;
+    margin: 0;
+    padding: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: right;
+    justify-content: right;
 }
 
 .right-panel img {
-    max-width: 130.2%;
-    height: auto;
+    max-width: 400px;
+    max-height: 400px;
+    /* right: 0; */
+    /* align-items: flex-end;
+    justify-content: right; */
+    /* max-width: fit-content; */
+    /* max-height: 100%; */
+    /* overflow: visible; */
+    /* max-width: 130.2%; */
+    /* height: auto; */
 }
 
 .social-buttons {
@@ -181,7 +196,94 @@ button.next {
     width: 100%;
 }
 
-
 #toggle-text , #orlog {
     text-align: center;
 }
+
+/* media queries */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        overflow: hidden;
+        height: auto;
+    }
+    .left-panel {
+        position: relative;
+        width: 100%;
+        height: 100%; 
+    }
+    
+    .left-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 20px;
+        width: 100%;
+        height: 100%;
+        background-image: url('/public/assets/Man_on_Bike2.png');
+        background-size: contain; 
+        background-position: right center;
+        background-repeat: no-repeat;
+        opacity: 0.25;
+    }
+    #form-title, #signup-form {
+        padding: 20px;
+        opacity: 1;
+        z-index: 1;
+    }
+    .right-panel {
+        display: none;
+    }
+}   
+
+    @media screen and (max-width: 450px) {
+        .container {
+            flex-direction: column;
+            height: auto;
+            overflow: hidden;
+        }
+        /* .left-panel {
+            position: relative;
+            width: 100%;
+            height: 100%; 
+        }
+        
+        .left-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 20px;
+            width: 80%;
+            height: 100%;
+            background-image: url('/public/assets/Man_on_Bike2.png');
+            background-size: contain; 
+            background-position: right center;
+            background-repeat: no-repeat;
+            opacity: 0.25;
+        } */
+        .signup-form {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .signup-form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            background-image: url('/public/assets/Man_on_Bike2.png') !important;
+            background-size: contain;
+            background-position: right;
+            background-repeat: no-repeat;
+            opacity: 0.25;
+        }
+        
+        #form-title, #signup-form {
+            padding: 9px;
+            opacity: 1;
+            z-index: 1;
+        }
+        .right-panel {
+            display: none;
+        }
+    }

@@ -26,8 +26,16 @@ exports.sendMessage = (req, res) => {
     const { sid, rid, message } = req.body;
     const query = "INSERT INTO messages (sid, rid, message, status) VALUES (?, ?, ?, 'sent')";
     db.query(query, [sid, rid, message], (err, result) => {
-        if (err) return res.status(500).json({ success: false, error: error.message });
-        res.json({ success: true, message: "Message sent." });
+        if (err) return res.status(500).json({ success: false, error: err.message });
+        res.json({ success: true, message: "Message sent.", messageId: result.insertId });
+    });
+};
+
+exports.updateMessageStatus = (req, res) => {
+    const { messageId, status } = req.body;
+    db.query("UPDATE messages SET status = ? WHERE id = ?", [status, messageId], (err) => {
+        if (err) return res.status(500).json({ error: "DB error" });
+        res.json({ success: true });
     });
 };
 

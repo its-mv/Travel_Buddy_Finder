@@ -72,14 +72,55 @@ function displayMessage(message) {
     div.innerText = message.message;
     div.dataset.id = message.id;
 
+    // Show status only for sender
+    if (message.sid == userId) {
+        const status = document.createElement("span");
+        status.className = "msg-status";
+        // status.innerText = message.status || "sent";
+        // Set icon based on message status
+        switch (message.status) {
+            case "sent":
+                status.innerHTML = "&#10003;"; // ✓
+                break;
+            case "delivered":
+                status.innerHTML = "&#10003;&#10003;"; // ✓✓
+                break;
+            case "read":
+                status.innerHTML = `<span class="blue-checks">&#10003;&#10003;</span>`; // ✓✓ in blue
+                break;
+        }
+        div.appendChild(status);
+    }
+
     if (message.sid == userId) {
         div.oncontextmenu = (e) => showOptions(e, message.id, message.message);
         div.ontouchstart = (e) => handleLongPress(e, message.id, message.message);
+    } else {
+        // Update status to 'delivered'
+        fetch("http://localhost:5000/api/chat/update-status", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messageId: message.id, status: "delivered" }),
+        }).then(() => {
+            socket.emit("messageDelivered", { messageId: message.id, receiverId: userId });
+        });
+
+        // Set timeout for "read"
+        setTimeout(() => {
+            fetch("http://localhost:5000/api/chat/update-status", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ messageId: message.id, status: "read" }),
+            }).then(() => {
+                socket.emit("messageRead", { messageId: message.id, receiverId: userId });
+            });
+        }, 100);
     }
 
     messagesDiv.appendChild(div);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
+
 
 // Function to show options for edit/delete
 function showOptions(e, messageId, messageText) {
@@ -165,7 +206,22 @@ function deleteMessage(messageId) {
 }
 
 // Real-time updates
-socket.on("receiveMessage", displayMessage);
+// socket.on("receiveMessage", displayMessage);
+socket.on("receiveMessage", (message) => {
+    console.log("New message received:", message, "Current chat with:", currentReceiverId);
+    // Only display the message if it's from the user currently selected in the chat
+    if (
+        (message.sid == currentReceiverId && message.rid == userId) ||
+        (message.sid == userId && message.rid == currentReceiverId)
+    ) {
+        displayMessage(message, true);
+    }else {
+        // Optionally show unread badge elsewhere
+        console.log("Message for a different chat. Ignored in current view.");
+    }
+
+    // Optionally: show notification badge elsewhere if message is from someone else
+});
 socket.on("messageEdited", ({ messageId, newText }) => {
     const msgDiv = document.querySelector(`[data-id='${messageId}']`);
     if (msgDiv) msgDiv.innerText = newText;
@@ -175,6 +231,25 @@ socket.on("messageDeleted", ({ messageId }) => {
     // if (msgDiv) msgDiv.remove();
     if (msgDiv) msgDiv.innerText = "Deleted Message";
 });
+socket.on("messageDelivered", ({ messageId }) => {
+    const msgDiv = document.querySelector(`[data-id='${messageId}']`);
+    if (msgDiv) {
+        const status = msgDiv.querySelector(".msg-status");
+        if (status && status.innerText === "sent") {
+            status.innerHTML = "&#10003;&#10003;"; // ✓✓
+        }
+    }
+});
+
+socket.on("messageRead", ({ messageId }) => {
+    const msgDiv = document.querySelector(`[data-id='${messageId}']`);
+    if (msgDiv) {
+        const status = msgDiv.querySelector(".msg-status");
+        if (status) {
+            status.innerHTML = `<span class="blue-checks">&#10003;&#10003;</span>`;
+        }
+    }
+});
 
 window.sendMessage = function () {
     const messageInput = document.getElementById("messageInput");
@@ -183,13 +258,20 @@ window.sendMessage = function () {
     if (!message) return;
 
     const messageData = { sid: userId, rid: currentReceiverId, message };
-    displayMessage(messageData);
     messageInput.value = "";
 
-    socket.emit("sendMessage", messageData);
     fetch("http://localhost:5000/api/chat/send-message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(messageData),
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            messageData.id = data.messageId;
+            messageData.status = "sent";
+            displayMessage(messageData);
+            socket.emit("sendMessage", messageData);
+        }
     });
 };

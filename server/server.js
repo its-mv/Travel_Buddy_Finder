@@ -51,6 +51,23 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on("messageDelivered", ({ messageId, receiverId }) => {
+        // Notify sender
+        for (let userId in users) {
+            if (users[userId]) {
+                io.to(users[userId]).emit("messageDelivered", { messageId });
+            }
+        }
+    });
+    
+    socket.on("messageRead", ({ messageId, receiverId }) => {
+        for (let userId in users) {
+            if (users[userId]) {
+                io.to(users[userId]).emit("messageRead", { messageId });
+            }
+        }
+    });    
+
     socket.on("editMessage", ({ messageId, newText }) => {
         io.emit("messageEdited", { messageId, newText });
     });

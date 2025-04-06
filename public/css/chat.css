@@ -162,6 +162,17 @@ body {
     cursor: pointer;
 }
 
+/* message */
+.msg-status {
+    font-size: 12px;
+    margin-left: 6px;
+    color: gray;
+}
+
+.blue-checks {
+    color: green;
+}
+
 /* Delete and edit messagees */
 .message-options {
     position: absolute;

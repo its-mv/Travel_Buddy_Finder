@@ -136,8 +136,8 @@ function showOptions(e, messageId, messageText) {
     options.className = "message-options";
     options.innerHTML = `
         <div class="menu-btn">
-        <button onclick="editMessage(${messageId}, '${messageText}')">Edit</button>
-        <button onclick="deleteMessage(${messageId})">Delete</button>
+        <button onclick="editMessage(${messageId}, '${messageText}')"><span class="text">Edit</span></button>
+        <button onclick="deleteMessage(${messageId})"><span class="text">Delete</span></button>
         </div>
     `;
 

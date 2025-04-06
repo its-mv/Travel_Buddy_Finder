@@ -4,15 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <link rel="stylesheet" href="../css/pages/contact.css">
+    <title>TripBuddy - Contact Us</title>
+    <link rel="stylesheet" href="/public/css/pages/contact.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <header>
-        <h1>Contact Us</h1>
-    </header>
-    <section>
-        <p>Have questions? Get in touch with us through our support channels...</p>
-    </section>
+      <div class="header">
+        <a href="javascript:history.back()"><i data-lucide="arrow-left" ></i></a>
+        <h1 class="text-center">Contact Us</h1>
+      </div>
+      </header>
+        <div class="grid">
+          <div class="form-container">
+            <h2>Get in Touch</h2>
+            <form id="contactForm">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" required placeholder="John Doe" />
+    
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required placeholder="john@example.com" />
+    
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="">Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="support">Customer Support</option>
+                <option value="feedback">Feedback</option>
+                <option value="partnership">Partnership Opportunity</option>
+                <option value="other">Other</option>
+              </select>
+    
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+    
+              <button type="submit">
+                <i data-lucide="send"  width="16" height="16"></i>  Send Message
+              </button>
+            </form>
+            <div id="thankYou" class="thank-you hidden">
+              <i data-lucide="check"  width="16" height="16"></i>
+              <h3>Thank You!</h3>
+              <p>Your message has been received. We'll get back to you soon.</p>
+              <button id="newMessageBtn">Send Another Message</button>
+            </div>
+          </div>
+    
+          <div class="info-container">
+            <div class="card">
+              <h2>Contact Information</h2>
+              <div class="info-block">
+                <div>
+                  <h3><i data-lucide="mail"  width="16" height="16"></i> Email Us</h3>
+                  <p>support@travelbuddy.in</p>
+                  <p>partnerships@travelbuddy.in</p>
+                </div>
+              </div>
+              <div class="info-block">
+                <div>  
+                  <h3><i data-lucide="phone" width="16" height="16"></i> Call Us</h3>
+                  <p>+91 98765 43210 (Customer Support)</p>
+                  <p>+91 98765 43211 (Business Inquiries)</p>
+                </div>
+              </div>
+              <div class="info-block">
+                <div>
+                  <h3><i data-lucide="map-pin"  width="16" height="16"></i> Visit Us</h3>
+                  <p>Travel Buddy Finder Pvt. Ltd.</p>
+                  <p>Vishwakarma Government Engineering College</p>
+                  <p>Chandkheda, Gujarat</p>
+                  <p>India</p>
+                </div>
+              </div>
+            </div>
+    
+            <div class="card">
+              <h2>Frequently Asked Questions</h2>
+              <div class="faq">
+                <h3>How quickly will I receive a response?</h3>
+                <p>We aim to respond within 24–48 hours on business days.</p>
+              </div>
+              <div class="faq">
+                <h3>I need urgent assistance. What should I do?</h3>
+                <p>Call our customer support directly at +91 98765 43210.</p>
+              </div>
+              <div class="faq">
+                <h3>Do you offer support in multiple languages?</h3>
+                <p>Yes, we support English, Hindi, Tamil, and Telugu.</p>
+              </div>
+              <div class="faq-link">
+                <a href="../pages/faq.html">View all FAQs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        const form = document.getElementById("contactForm");
+        const thankYou = document.getElementById("thankYou");
+        const newMessageBtn = document.getElementById("newMessageBtn");
+    
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          form.classList.add("hidden");
+          thankYou.classList.remove("hidden");
+          form.reset();
+        });
+    
+        newMessageBtn.addEventListener("click", () => {
+          thankYou.classList.add("hidden");
+          form.classList.remove("hidden");
+        });
+      </script>
+    
+    <script>
+      lucide.createIcons(); // Initialize Lucide icons
+  </script>
 </body>
 </html>

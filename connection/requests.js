@@ -11,7 +11,7 @@ async function fetchRequests() {
     try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/connections/user-requests?t=${Date.now()}", {
+        const response = await fetch("http://localhost:5000/connections/user-requests", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -24,7 +24,6 @@ async function fetchRequests() {
         }
 
         const { sentRequests, receivedRequests } = await response.json();
-        // console.log("API Response:", sentRequests[0], receivedRequests[0]);
 
         // Clear previous data
         ["pendingSent", "acceptedSent", "rejectedSent", "pendingReceived", "acceptedReceived", "rejectedReceived"]
@@ -73,7 +72,6 @@ function renderRequests(requests, containerId) {
     container.innerHTML = ""; // Clear previous content
 
     requests.forEach((req, index) => {
-        // console.log("Rendering request:", req);
         const div = document.createElement("div");
         div.classList.add("request-card");
         if (index >= 3) {

@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const firstName = localStorage.getItem("fname");
     const lastName = localStorage.getItem("lname");
-    const uid = localStorage.getItem("uid"); // Get email from localStorage
-    const gender = localStorage.getItem("gender");
+    const uid = localStorage.getItem("uid");
 
     if (!uid) {
         console.error("User ID is missing in localStorage!");
@@ -10,15 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     if (firstName && lastName) {
         document.getElementById("Name").innerText = `${firstName} ${lastName}`;
-    }
-    if (gender == "Male") {
-        document.getElementById("Gender").innerText = `Him/His`;
-    }
-    else if (gender == "Female") {
-        document.getElementById("Gender").innerText = `Her/Her`;
-    }
-    else {
-        document.getElementById("Gender").innerText = `They/Them`;
     }
 
     if (uid) {
@@ -29,6 +19,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             const data = await response.json();
             
             if (response.ok) {
+                const gender = data.gender;
+                if (gender == "Male") {
+                    document.getElementById("Gender").innerText = `Him/His`;
+                }
+                else if (gender == "Female") {
+                    document.getElementById("Gender").innerText = `She/Her`;
+                }
+                else {
+                    document.getElementById("Gender").innerText = `They/Them`;
+                }
                 if (data.home_city && data.country) {
                     document.getElementById("Location").innerText = `${data.home_city}, ${data.country}`;
                 }

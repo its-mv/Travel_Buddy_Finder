@@ -1,5 +1,5 @@
 const express = require("express");
-const { sendRequest, getRequests, updateRequest, getNotifications, getUserRequests } = require("../controllers/connectionController");
+const { sendRequest, getRequests, updateRequest, getNotifications, getUserRequests } = require("../../Extra/connectionController");
 const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();

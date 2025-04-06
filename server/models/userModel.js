@@ -3,17 +3,18 @@ const db = require("../config/db");
 const User = {
     createUser: (userData, callback) => {
         const { fname, lname, gender, phone, email, password, dob, image, name } = userData;
-        const query = "INSERT INTO user (fname, lname, gender, phone, email, password, dob,  name) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+        const query = "INSERT INTO user (fname, lname, gender, phone, email, password, dob,  name) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
         db.query(query, [fname, lname, gender, phone, email, password, dob, name], (err, result) => {
             if (err) return callback(err, null);
 
+            const userId = result.insertId;
             const gender = userData.gender;
-            const userId = result.insertId;  // Get auto-incremented uid
+            // console.log("User Gender:", gender);
 
             // Insert into `user_full_info` table using uid
             const infoQuery = `INSERT INTO user_full_info (uid, gender) VALUES (?, ?)`;
 
-            db.query(infoQuery, [userId], (infoErr, infoResult) => {
+            db.query(infoQuery, [userId, gender], (infoErr, infoResult) => {
                 if (infoErr) return callback(infoErr, null);
                 return callback(null, { userId, message: "User created successfully" });
             });

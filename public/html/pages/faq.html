@@ -4,15 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ</title>
-    <link rel="stylesheet" href="../css/pages/faq.css">
+    <title>TripBuddy - FAQ</title>
+    <link rel="stylesheet" href="/public/css/pages/faq.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <header>
-        <h1>Frequently Asked Questions</h1>
+      <div class="header">
+        <a href="javascript:history.back()"><i data-lucide="arrow-left" ></i></a>
+        <h1 class="text-center">FAQ</h1>
+      </div>
     </header>
-    <section>
-        <p>Find answers to commonly asked questions about TripBuddy...</p>
-    </section>
+    <div class="page">
+        <div class="container">
+    
+          <div class="faq-wrapper">
+            <div class="faq-header">
+              <i data-lucide="help-circle"></i>
+              <h1>Frequently Asked Questions</h1>
+            </div>
+    
+            <!-- Getting Started -->
+            <section>
+              <h2>Getting Started</h2>
+              <div class="faq-group">
+                <div class="faq-item">
+                  <button class="faq-question">How do I create an account on Travel Buddy Finder?
+                  <i data-lucide="chevron-down"></i>
+                  </button>
+                  <div class="faq-answer">Creating an account is easy! Click on the <a href="../pages/signUp.html">'Sign Up'</a> button, fill in your basic information, and verify your email address...</div>
+                </div>
+    
+                <div class="faq-item">
+                  <button class="faq-question">Is Travel Buddy Finder free to use?
+                  <i data-lucide="chevron-down"></i>
+                  </button>
+                  <div class="faq-answer">Yes, our basic features are completely free! This includes creating a profile, browsing potential travel companions, and basic messaging...</div>
+                </div>
+    
+                <!-- Add other FAQs here following the same pattern -->
+              </div>
+            </section>
+    
+            <!-- Still Have Questions -->
+            <div class="cta-box">
+              <h2>Still Have Questions?</h2>
+              <p>If you couldn't find the answer to your question in our FAQ, please don't hesitate to reach out to our support team. We're here to help!</p>
+              <div class="cta-buttons">
+                <a href="../pages/contactUs.html" class="btn-primary">Contact Support</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script>
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const item = btn.parentElement;
+              item.classList.toggle('open');
+            });
+          });          
+    </script>
+    <script>
+      lucide.createIcons(); // Initialize Lucide icons
+  </script>
 </body>
 </html>

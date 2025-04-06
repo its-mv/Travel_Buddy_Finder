@@ -51,12 +51,13 @@ exports.getRequests = (req, res) => {
     }
 
     const query = `
-        SELECT c.id, c.sender_id, u.fname, u.lname, u.email, u.gender, c.status, c.created_at, c.updated_at
+        SELECT c.id, c.sender_id, u.fname, u.lname, u.email, c.status, c.created_at, c.updated_at
         FROM connections c
         JOIN user u ON c.sender_id = u.uid
         WHERE c.receiver_id = ? AND c.status = 'pending'
-    `;    
-
+    `;
+    
+    console.log("Query:", query);
     db.query(query, [userId], (err, results) => {
         if (err) {
             console.error("Database Error:", err);
@@ -125,6 +126,7 @@ exports.getNotifications = (req, res) => {
 };
 
 exports.getUserRequests = (req, res) => {
+    console.log("getUserRequests called"); 
     const userId = req.user ? req.user.uid : req.body.uid;
 
     if (!userId) {
@@ -153,10 +155,13 @@ exports.getUserRequests = (req, res) => {
         if (err) {
             return res.status(500).json({ error: "Database error", details: err.message });
         }
+        console.log("Sent Requests:", sentResults);
         db.query(receivedQuery, [userId], (err, receivedResults) => {
             if (err) {
                 return res.status(500).json({ error: "Database error", details: err.message });
             }
+            console.log("Sent Request Example:", sentResults[0]);
+            console.log("Received Request Example:", receivedResults[0]);
             res.status(200).json({ sentRequests: sentResults, receivedRequests: receivedResults });
         });
     });

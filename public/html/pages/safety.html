@@ -1,18 +1,118 @@
-<!-- Safety Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safety</title>
-    <link rel="stylesheet" href="../css/pages/safety.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TripBuddy - Safety First</title>
+  <link rel="stylesheet" href="/public/css/pages/safety.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <header>
-        <h1>Safety Guidelines</h1>
-    </header>
-    <section>
-        <p>Your safety is our priority. Follow these guidelines for a safe experience...</p>
-    </section>
+  <header>
+    <div class="header">
+      <a href="javascript:history.back()"><i data-lucide="arrow-left" ></i></a>
+      <h1 class="text-center">Safety</h1>
+    </div>
+  </header>
+  <div class="container">
+    <div class="card">
+      <div class="icon-title" id="safety-title">
+        <i data-lucide="shield"></i> 
+        <h1 class="title">Safety First</h1>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="heading">Our Commitment to Your Safety</h2>
+      <p>At Travel Buddy Finder, your safety is our top priority. We are committed to building a secure and trustworthy community where travelers can confidently connect, communicate, and explore the world together.</p>
+      <p>While we work hard to maintain a safe platform, it's essential for users to take personal precautions and use their best judgment when interacting with others.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="heading">Platform Safety Features</h2>
+
+      <div class="icon-title">
+        <i data-lucide="check-circle"  width="16" height="16"></i> 
+        Verified Profiles
+      </div>
+      <ul><li>We offer profile verification through email, phone, and ID to help ensure you're connecting with real, trustworthy travelers.</li></ul>
+
+      <div class="icon-title">
+        <i data-lucide="check-circle"  width="16" height="16"></i> 
+        Review System
+      </div>
+      <ul><li>After traveling together, users can leave reviews and ratings to promote accountability and transparency.</li></ul>
+
+      <div class="icon-title">
+        <i data-lucide="check-circle"  width="16" height="16"></i> 
+        Report & Block
+      </div>
+      <ul>
+      <li>Easily report inappropriate behavior or block users you're uncomfortable with. Our team investigates all reports thoroughly.</li></ul>
+
+      <div class="icon-title">
+        <i data-lucide="check-circle"  width="16" height="16"></i> 
+        Real-Time Chat
+      </div>
+      <ul><li>Communicate within the platform before deciding to meet. Never feel pressured to share personal contact details.</li></ul>
+    </div>
+
+    <div class="card">
+      <div class="heading">
+        <i data-lucide="alert-triangle"></i> Safety Guidelines for Travelers
+      </div>
+
+      <h3 class="subtitle">Before Connecting</h3>
+      <ul>
+        <li>Complete your profile and get verified.</li>
+        <li>Review profiles and ratings before accepting requests.</li>
+        <li>Use in-app messaging to build trust first.</li>
+      </ul>
+
+      <h3 class="subtitle">When Communicating</h3>
+      <ul>
+        <li>Never share personal info like your home address or financial details.</li>
+        <li>Watch for red flags (evasive behavior, inconsistent stories, etc).</li>
+        <li>Keep conversations respectful and friendly.</li>
+      </ul>
+
+      <h3 class="subtitle">Before & During Travel</h3>
+      <ul>
+        <li>Video call your travel buddy before meeting in person.</li>
+        <li>Share your plans with a friend/family member.</li>
+        <li>Meet in public first; avoid secluded locations.</li>
+        <li>Trust your instincts – if something feels off, walk away.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 class="heading">Emergency Resources</h2>
+      <div class="grid" id="emergency-contacts">
+        <div>
+          <h3>India Emergency Contacts</h3>
+            <li><i data-lucide="phone"  width="16" height="16"></i> Police: <a href="tel:100">100</a></li>
+            <li><i data-lucide="phone"  width="16" height="16"></i> Ambulance: <a href="tel:108">108</a></li>
+            <li><i data-lucide="phone"  width="16" height="16"></i> Women Helpline: <a href="tel:181">181</a></li>
+        </div>
+        <div>
+          <h3>Travel Buddy Support</h3>
+            <li><i data-lucide="phone"  width="16" height="16"></i><a href="tel:+91 98765 43210"> +91 98765 43210</a></li>
+            <li><i data-lucide="mail"  width="16" height="16"></i> <a href="mailto:safety@travelbuddy.in?subject=Safety%20Concern&body=Hello%20Team%2C%0AI'm%20reaching%20out%20about...">safety@travelbuddy.in</a></li>
+        </div>
+      </div>
+    </div>
+
+    <div class="gradient-box">
+      <div class="heading">
+        <i data-lucide="users"  width="16" height="16"></i>
+        Community Safety Pledge
+      </div>
+      <p>By joining Travel Buddy Finder, you agree to treat all members with respect, honesty, and care. Together, we can build a safe, supportive community of travelers who uplift and protect each other on every journey.</p>
+      <a href="../pages/contactUs.html"><button class="btn">Contact Our Safety Team</button></a>
+    </div>
+  </div>
+  <script>
+    lucide.createIcons(); // Initialize Lucide icons
+</script>
 </body>
 </html>

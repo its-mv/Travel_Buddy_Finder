@@ -7,7 +7,7 @@ const socketIo = require("socket.io");
 const authRoutes = require("./routes/authRoutes");
 const tripRoutes = require("./routes/tripRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
-const connectionRoutes = require("../Extra/connectionRoutes");
+const connectionRoutes = require("./routes/connectionRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 

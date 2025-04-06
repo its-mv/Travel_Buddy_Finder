@@ -32,6 +32,8 @@ async function fetchRequests() {
 
             card.innerHTML = `
                 <p><strong>${req.fname} ${req.lname}</strong> wants to connect with you.</p>
+                <p><strong>Email:</strong>${req.email}</p>
+                <p><strong>Gender:</strong>${req.gender}</p>
                 <button class="accept-btn" onclick="handleRequest(${req.id}, 'accepted')">Accept</button>
                 <button class="decline-btn" onclick="handleRequest(${req.id}, 'declined')">Decline</button>
             `;

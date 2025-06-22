@@ -82,8 +82,8 @@ main .container {
     border-radius: 50%;
     text-align: center;
 }
-.left .name {
-    font-size: 30px;
+.left .username {
+    font-size: 18px;
     font-weight: bold;
     font-style: italic;
 }

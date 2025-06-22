@@ -385,7 +385,7 @@ main {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 8px;
 }
 
@@ -397,4 +397,4 @@ main {
     background: #5182ED; 
     border-radius: 0% 0% 100% 100%;
     border: 2px solid black;
-}
+} */

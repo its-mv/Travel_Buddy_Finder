@@ -6,17 +6,17 @@ const db = require("../config/db"); // Adjust the path if needed
 
 exports.signup = async (req, res) => {
     try {
-        const { fname, lname, gender, phone, email, password, dob, image, name } = req.body;
+        const { fname, lname, username, gender, phone, email, password, dob, image, name } = req.body;
         // const image = req.file ? req.file.buffer : null;
 
-        if (!fname || !lname || !gender || !phone || !email || !password || !dob || !name) {
+        if (!fname || !lname || !username|| !gender || !phone || !email || !password || !dob || !name) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        User.createUser({ fname, lname, gender, phone, email, password: hashedPassword, dob, image, name }, (err, result) => {
+        User.createUser({ fname, lname, username, gender, phone, email, password: hashedPassword, dob, image, name }, (err, result) => {
             if (err) {
                 console.error("Signup Error:", err);
                 if (err.code === "ER_DUP_ENTRY") {
@@ -55,8 +55,9 @@ exports.login = async (req, res) => {
 
             if(password === user.name){
                 // Generate JWT token
-                const token = jwt.sign({ gender: user.gender, uid: user.uid, fname: user.fname, lname: user.lname }, process.env.JWT_SECRET, { expiresIn: "1d" });
-
+                const token = jwt.sign({ gender: user.gender, uid: user.uid, fname: user.fname, lname: user.lname, username: user.username }, process.env.JWT_SECRET, { expiresIn: "1d" });
+                
+                
                 console.log("Generated token:", token);
                 console.log("User data:", user);
 
@@ -66,9 +67,11 @@ exports.login = async (req, res) => {
                     gender: user.gender,
                     uid: user.uid,
                     fname: user.fname, 
-                    lname: user.lname,  
+                    lname: user.lname, 
+                    username: user.username, 
                     redirect: "/public/html/home.html" 
                 });
+                console.log(user.username);
             }
             else {
                 return res.status(400).json({ error: "Invalid credentials" });

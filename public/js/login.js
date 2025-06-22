@@ -27,6 +27,7 @@ document.getElementById("login").addEventListener("submit", async (event) => {
         localStorage.setItem("fname", data.fname); 
         localStorage.setItem("lname", data.lname);
         localStorage.setItem("uid", data.uid);
+        localStorage.setItem("username", data.username);
 
         console.log("Token Stored:", localStorage.getItem("token"));
         console.log("Name Stored:", localStorage.getItem("fname"), localStorage.getItem("lname"));

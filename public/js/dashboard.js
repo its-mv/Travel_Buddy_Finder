@@ -2,13 +2,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const firstName = localStorage.getItem("fname");
     const lastName = localStorage.getItem("lname");
     const uid = localStorage.getItem("uid");
-
+    const username = localStorage.getItem("username");
+    
     if (!uid) {
         console.error("User ID is missing in localStorage!");
         return;
     }
-    if (firstName && lastName) {
-        document.getElementById("Name").innerText = `${firstName} ${lastName}`;
+    // if (firstName && lastName) {
+    //     document.getElementById("Name").innerText = `${firstName} ${lastName}`;
+    // }
+    if (username){
+        document.getElementById("Username").innerText = `@${username}`;
     }
 
     if (uid) {

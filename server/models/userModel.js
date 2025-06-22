@@ -2,19 +2,20 @@ const db = require("../config/db");
 
 const User = {
     createUser: (userData, callback) => {
-        const { fname, lname, gender, phone, email, password, dob, image, name } = userData;
-        const query = "INSERT INTO user (fname, lname, gender, phone, email, password, dob,  name) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
-        db.query(query, [fname, lname, gender, phone, email, password, dob, name], (err, result) => {
+        const { fname, lname, username, gender, phone, email, password, dob, image, name } = userData;
+        const query = "INSERT INTO user (fname, lname, username, gender, phone, email, password, dob,  name) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        db.query(query, [fname, lname, username, gender, phone, email, password, dob, name], (err, result) => {
             if (err) return callback(err, null);
 
             const userId = result.insertId;
             const gender = userData.gender;
+            const username = userData.username;
             // console.log("User Gender:", gender);
 
             // Insert into `user_full_info` table using uid
-            const infoQuery = `INSERT INTO user_full_info (uid, gender) VALUES (?, ?)`;
+            const infoQuery = `INSERT INTO user_full_info (uid, username, gender) VALUES (?, ?, ?)`;
 
-            db.query(infoQuery, [userId, gender], (infoErr, infoResult) => {
+            db.query(infoQuery, [userId, username, gender], (infoErr, infoResult) => {
                 if (infoErr) return callback(infoErr, null);
                 return callback(null, { userId, message: "User created successfully" });
             });
@@ -22,8 +23,8 @@ const User = {
     },
 
     findUserByEmail: (email, callback) => {
-        const query = "SELECT * FROM user WHERE email = ?";
-        db.query(query, [email], callback);
+        const query = "SELECT * FROM user WHERE email = ? OR username = ?";
+        db.query(query, [email, email], callback);
     },
 
     getUserProfile: (userId, callback) => {

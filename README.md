@@ -3,7 +3,7 @@
 
 Welcome to **Travel Buddy Finder** — a web-based platform that connects solo travelers across the globe! Whether you're planning an adventure or looking to meet like-minded explorers, this app helps you find the perfect travel companion based on destination, interests, and time.
 
-<!-- ![Travel Banner](https://i.imgur.com/tYcD6K1.jpg) Optional banner; you can replace with your own image -->
+<!-- ![Travel Banner](https://i.imgur.com/tYcD6K1.jpg) Optional banner; you can replace with your own image d -->
 
 ---
 

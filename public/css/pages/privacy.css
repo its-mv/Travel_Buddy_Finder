@@ -1,0 +1,124 @@
+/* Header */
+.header {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background-color: #f5f6f7;
+    justify-content: center;
+    /* padding: 20px; */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+.header a {
+    position: absolute;
+    left: 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 28px;
+}
+.header h1 {
+    font-size: 40px;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background-color: #f9fafb;
+    color: #374151;
+  }
+  
+  .page {
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+  }
+  
+  .back-link {
+    margin-bottom: 2rem;
+  }
+  
+  .link {
+    display: inline-flex;
+    align-items: center;
+    color: #0d9488;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .link:hover {
+    color: #0f766e;
+  }
+  
+  .icon-small {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+  
+  .icon-large {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    color: #0d9488;
+  }
+  
+  .headerr {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    color: #111827;
+    font-weight: bold;
+  }
+  
+  .card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .date {
+    font-weight: 500;
+    color: #6b7280;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #111827;
+  }
+  
+  .card h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #111827;
+  }
+  
+  ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact p {
+    margin: 0.3rem 0;
+  }
+  

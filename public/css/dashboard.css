@@ -1,0 +1,427 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f6f7;
+}
+
+.container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Header */
+.header {
+    background: #5182ED;
+    color: white;
+    padding: 15px 0;
+    display: flex;
+}
+
+.header .logo {
+    margin: 0;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.link-home {
+    text-decoration: none;
+    color: white;
+}
+
+.slogan img{
+    margin-top: 10px;
+    height: 35px;
+    width: auto;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+/* Main Content */
+main {
+    background-color: #f5f6f7;
+    padding: 20px;
+}
+main .container {
+    margin: 5px;
+    padding: 5px;
+}
+/* Left Section */
+.left , .right .top .box, .right .middle, .right .bottom {
+    background-color: white;
+    margin: 0px;
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #E0E2E5;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05), 
+                0px 2px 10px rgba(0, 0, 0, 0.02);
+}
+.left {
+    margin: 10px 5px 5px 5px;
+    padding: 5px;
+    width: 25%;
+    height: auto;
+    min-width: 270px;
+}
+.left .profile {
+    text-align: center;
+}
+.left .profile #dashboard-profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #5182ed;
+    margin: 10px 0px 5px 0px;
+}
+.left img {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    border-radius: 50%;
+    text-align: center;
+}
+.left .username {
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+}
+.left .gender {
+    font-size: 15px;
+    /* font-weight: bold; */
+    font-style: italic;
+}
+.left .style-tag {
+    display: inline-block;
+    background-color: #C9D6F5;
+    color: #2950BB;
+    padding: 5px 12px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.left .edit-profile {
+    margin: 5px;
+    width: 90%;
+    border: 1px solid grey;
+    background-color: white;
+}
+.left .edit-profile a {
+    text-decoration: none;
+    color: black;
+}
+.left .navbar {
+    margin: 0px 12px;
+    width: 90%;
+}
+.nav-item {
+    width: 240px;
+    margin: 2px 0px;
+    text-align: left;
+    padding: 0px 15px;
+    border-radius: 7px;
+    font-size: 15px;
+}
+.nav-link {
+    text-decoration: none;
+}
+.nav-item:hover {
+    background-color: #f5f6f7;
+}
+.nav-item.active {
+    color: #2950BB;
+    background-color: #C9D6F5;
+
+}
+/* Right Content */
+.right {
+    margin: 6px 5px 5px 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    gap: 10px;
+}
+.right .top .box, .right .middle, .right .bottom {
+    padding: 10px 10px 10px 20px;
+}
+.right p {
+    margin: 5px 5px 0px 5px;
+    padding: 5px 5px 0px 5px;
+}
+
+/* profile completion */
+.profile-completion-box {
+    padding: 5px 5px 0px;
+    margin: 5px 5px 0px;
+    max-width: 300px;
+    background: #fff;
+}
+
+.progress-container {
+    margin: 10px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    background: #f5f6f7 !important;
+    height: 8px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background-color: grey !important;
+    width: 0%;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 8px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.title {    
+    font-size: 20px;
+    font-weight: bold;
+}
+.note {
+    color: grey;
+    font-size: 16px;
+}
+
+/* Upcoming trip */
+.link-trips {
+    text-decoration: none;
+    color: black;
+    text-decoration: underline !important;
+}
+.trip-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    width: 48%;
+}
+
+.trip-card h3 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.trip-card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.trip-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.trip-buttons button {
+    padding: 8px 12px;
+    width: 48%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.view-more {
+    background: #007bff;
+    color: white;
+}
+
+.cancel-trip {
+    background: #dc3545;
+    color: white;
+}
+
+.view-more:hover {
+    background: #0056b3;
+}
+
+.cancel-trip:hover {
+    background: #a71d2a;
+}
+
+.trip-details {
+    display: none;
+    margin-top: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.confirm-box button {
+    display: inline-block;
+    margin: 5px;
+    width: auto;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+.confirm-box .confirm-yes {
+    background: red;
+    color: white;
+    width: 45%;
+}
+.confirm-box .confirm-no {
+    background: gray;
+    color: white;
+    width: 45%;
+}
+/* end */
+
+.top {
+    display: flex;
+    gap: 10px;
+}
+
+.small {
+    flex: 1;
+    height: auto;
+}
+
+.middle {
+    height: auto;
+}
+
+.bottom {
+    height: auto;
+}
+
+/* Footer */
+.footer {
+    background: #5182ed; 
+    color: white;
+    padding: 40px 60px 20px 60px;
+    text-align: left;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+.footer-section h3, .footer-section h4 {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.footer-section p {
+    color: #f5f6f7;
+    font-size: 14px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 8px 0;
+}
+
+.footer-section ul li a {
+    color: #f5f6f7;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #f5f6f7;
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    main .container {
+        flex-direction: column;
+    }
+    .left {
+        width: 100%;
+    }
+    .right {
+        width: 100%;
+    }
+    .edit-profile {
+        width: 90%; 
+        text-align: center;
+    }
+    
+    .nav-item {
+        width: 90%; 
+    }
+    
+    .navbar-nav {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;
+        text-align: center;
+    }
+
+}

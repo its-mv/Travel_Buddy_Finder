@@ -24,6 +24,18 @@ app.use(cors({ origin: "http://127.0.0.1:5500", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Security: prevent caching of HTML pages so back-button doesn't show authenticated content
+app.use((req, res, next) => {
+    // Only apply to GET requests that accept HTML
+    if (req.method === 'GET' && req.headers.accept && req.headers.accept.indexOf('text/html') !== -1) {
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
+        res.set('Surrogate-Control', 'no-store');
+    }
+    next();
+});
+
 app.use("/connections", connectionRoutes);
 app.use("/auth", authRoutes);
 app.use("/api", feedbackRoutes);

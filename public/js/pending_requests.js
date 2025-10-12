@@ -30,12 +30,21 @@ async function fetchRequests() {
             const card = document.createElement("div");
             card.classList.add("request-card");
 
+            const profileImage = req.profile_image || "../assets/Man_on_Bike.png";
+
             card.innerHTML = `
-                <p><strong>${req.fname} ${req.lname}</strong> wants to connect with you.</p>
-                <p><strong>Email:</strong>${req.email}</p>
-                <p><strong>Gender:</strong>${req.gender}</p>
-                <button class="accept-btn" onclick="handleRequest(${req.id}, 'accepted')">Accept</button>
-                <button class="decline-btn" onclick="handleRequest(${req.id}, 'declined')">Decline</button>
+                <div class="request-header">
+                    <img src="${profileImage}" alt="${req.fname} ${req.lname}" class="request-avatar">
+                    <div class="request-info">
+                        <p><strong>${req.fname} ${req.lname}</strong> wants to connect with you.</p>
+                        <p><strong>Email:</strong> ${req.email}</p>
+                        <p><strong>Gender:</strong> ${req.gender}</p>
+                    </div>
+                </div>
+                <div class="request-actions">
+                    <button class="accept-btn" onclick="handleRequest(${req.id}, 'accepted')">Accept</button>
+                    <button class="decline-btn" onclick="handleRequest(${req.id}, 'declined')">Decline</button>
+                </div>
             `;
 
             requestsList.appendChild(card);

@@ -79,13 +79,23 @@ function renderRequests(requests, containerId) {
         if (index >= 3) {
             div.classList.add("hidden"); // Hide requests beyond 3
         }
+
+        const profileImage = req.profile_image || "../assets/Man_on_Bike.png";
+
         div.innerHTML = `
-            <p><strong>Name:</strong> ${req.fname} ${req.lname}</p>
-            <p><strong>Email:</strong> ${req.email}</p>
-            <p><strong>Gender:</strong> ${req.gender || "Not specified"}</p>
-            <p><strong>Status:</strong> ${req.status}</p>
-            <p><strong>Requested on:</strong> ${new Date(req.created_at).toLocaleString()}</p>
-            ${req.status !== "pending" ? `<p><strong>Updated on:</strong> ${new Date(req.updated_at).toLocaleString()}</p>` : ""}
+            <div class="request-header">
+                <img src="${profileImage}" alt="${req.fname} ${req.lname}" class="request-avatar">
+                <div class="request-info">
+                    <p><strong>Name:</strong> ${req.fname} ${req.lname}</p>
+                    <p><strong>Email:</strong> ${req.email}</p>
+                    <p><strong>Gender:</strong> ${req.gender || "Not specified"}</p>
+                </div>
+            </div>
+            <div class="request-details">
+                <p><strong>Status:</strong> ${req.status}</p>
+                <p><strong>Requested on:</strong> ${new Date(req.created_at).toLocaleString()}</p>
+                ${req.status !== "pending" ? `<p><strong>Updated on:</strong> ${new Date(req.updated_at).toLocaleString()}</p>` : ""}
+            </div>
         `;
         container.appendChild(div);
     });

@@ -2,6 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("profile-form");
     const requestVerificationBtn = document.getElementById("request-verification");
     const verificationStatusText = document.getElementById("verification-status");
+    
+    // Image upload elements
+    const profileImageInput = document.getElementById("profile-image-input");
+    const uploadImageBtn = document.getElementById("upload-image-btn");
+    const saveImageBtn = document.getElementById("save-image-btn");
+    const profileImagePreview = document.getElementById("profile-image-preview");
+    const uploadStatus = document.getElementById("upload-status");
+    let selectedFile = null;
 
     // Fetch user profile data
     async function fetchProfile() {
@@ -13,6 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
 
             if (data) {
+                // Set profile image if exists, otherwise use default
+                if (data.profile_image) {
+                    profileImagePreview.src = data.profile_image;
+                } else {
+                    profileImagePreview.src = "../assets/Man_on_Bike.png";
+                }
+
                 document.getElementById("bio").value = data.bio || "";
                 document.getElementById("home_city").value = data.home_city || "";
                 document.getElementById("country").value = data.country || "";
@@ -150,4 +165,92 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("progress-fill").style.width = `${percentage}%`;
         document.getElementById("progress-text").innerText = `Profile Completion: ${percentage}%`;
     }
+
+    // Handle image selection
+    uploadImageBtn.addEventListener("click", () => {
+        profileImageInput.click();
+    });
+
+    profileImageInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            // Validate file type
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            if (!allowedTypes.includes(file.type)) {
+                uploadStatus.textContent = "❌ Please select a valid image file (JPEG, PNG, GIF, WebP)";
+                uploadStatus.style.color = "red";
+                return;
+            }
+
+            // Validate file size (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                uploadStatus.textContent = "❌ Image size must be less than 5MB";
+                uploadStatus.style.color = "red";
+                return;
+            }
+
+            selectedFile = file;
+            
+            // Preview the image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                profileImagePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            // Show save button
+            saveImageBtn.style.display = "inline-block";
+            uploadStatus.textContent = "👆 Click 'Save Image' to upload";
+            uploadStatus.style.color = "#007bff";
+        }
+    });
+
+    // Handle image upload to Supabase
+    saveImageBtn.addEventListener("click", async () => {
+        if (!selectedFile) {
+            uploadStatus.textContent = "❌ Please select an image first";
+            uploadStatus.style.color = "red";
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("profileImage", selectedFile);
+
+        try {
+            uploadStatus.textContent = "⏳ Uploading...";
+            uploadStatus.style.color = "#007bff";
+            saveImageBtn.disabled = true;
+
+            const res = await fetch("http://localhost:5000/profile/upload-image", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                },
+                body: formData
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                uploadStatus.textContent = "✅ Profile image uploaded successfully!";
+                uploadStatus.style.color = "green";
+                saveImageBtn.style.display = "none";
+                selectedFile = null;
+                
+                // Update the preview with the uploaded image URL
+                if (data.imageUrl) {
+                    profileImagePreview.src = data.imageUrl;
+                }
+            } else {
+                uploadStatus.textContent = `❌ ${data.message || 'Upload failed'}`;
+                uploadStatus.style.color = "red";
+            }
+        } catch (err) {
+            console.error("Error uploading image:", err);
+            uploadStatus.textContent = "❌ Error uploading image";
+            uploadStatus.style.color = "red";
+        } finally {
+            saveImageBtn.disabled = false;
+        }
+    });
 });

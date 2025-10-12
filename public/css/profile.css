@@ -134,3 +134,74 @@ button:hover {
     border: 1px solid #5182ed;
     transition: all 0.15s ease-in-out;
 }
+
+/* Profile Image Upload Styles */
+.profile-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border: 2px dashed #ccc;
+}
+
+.image-preview-container {
+    margin-bottom: 15px;
+}
+
+#profile-image-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #5182ed;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-upload-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-btn, .save-btn {
+    padding: 10px 20px;
+    background: #5182ed;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.upload-btn:hover, .save-btn:hover {
+    background: #fff;
+    color: #5182ed;
+    border: 1px solid #5182ed;
+}
+
+.save-btn {
+    background: #28a745;
+}
+
+.save-btn:hover {
+    background: #fff;
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.save-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.upload-status {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}

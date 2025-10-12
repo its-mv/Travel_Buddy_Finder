@@ -135,6 +135,42 @@ main {
     text-align: center;
     transition: transform 0.3s ease-in-out;
 }
+
+/* Trip Creator Header with Avatar */
+.trip-creator-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.trip-creator-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #5182ed;
+    flex-shrink: 0;
+}
+
+.trip-creator-info {
+    flex: 1;
+    text-align: left;
+}
+
+.trip-creator-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.trip-creator-info p {
+    margin: 0;
+    padding: 0 !important;
+    font-size: 14px;
+    color: #666;
+}
  
 .traveler-card p {
     text-align: left;

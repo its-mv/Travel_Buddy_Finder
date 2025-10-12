@@ -1,5 +1,6 @@
 const UserModel = require("../models/userModel");
 const db = require("../config/db"); 
+const supabase = require("../config/supabase"); 
 
 exports.getProfileCompletion = (req, res) => {
     const userId = req.user.uid;
@@ -119,3 +120,61 @@ exports.requestVerification = async (req, res) => {
         res.status(500).json({ success: false, message: "Server error." });
     }
 };
+
+// Upload profile image to Supabase Storage
+exports.uploadProfileImage = async (req, res) => {
+    try {
+        const userId = req.user.uid;
+        const file = req.file;
+
+        if (!file) {
+            return res.status(400).json({ success: false, message: "No image file provided" });
+        }
+
+        // Create a unique filename: userId_timestamp.extension
+        const fileExt = file.originalname.split('.').pop();
+        const fileName = `${userId}_${Date.now()}.${fileExt}`;
+        const filePath = `profile-images/${fileName}`;
+
+        // Upload to Supabase Storage
+        const { data, error } = await supabase.storage
+            .from('profile-images') // Your bucket name
+            .upload(filePath, file.buffer, {
+                contentType: file.mimetype,
+                upsert: true // Overwrite if exists
+            });
+
+        if (error) {
+            console.error("Supabase upload error:", error);
+            return res.status(500).json({ success: false, message: "Failed to upload image", error: error.message });
+        }
+
+        // Get the public URL
+        const { data: urlData } = supabase.storage
+            .from('profile-images')
+            .getPublicUrl(filePath);
+
+        const imageUrl = urlData.publicUrl;
+
+        // Update user's profile_image in database
+        const updateQuery = `UPDATE "user" SET profile_image = ? WHERE uid = ?`;
+        
+        db.query(updateQuery, [imageUrl, userId], (dbErr, result) => {
+            if (dbErr) {
+                console.error("Database update error:", dbErr);
+                return res.status(500).json({ success: false, message: "Image uploaded but failed to update database" });
+            }
+
+            res.json({ 
+                success: true, 
+                message: "Profile image uploaded successfully", 
+                imageUrl: imageUrl 
+            });
+        });
+
+    } catch (error) {
+        console.error("Error uploading profile image:", error);
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+};
+

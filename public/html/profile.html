@@ -23,6 +23,19 @@
                 </div>
             </div>
 
+            <!-- Profile Image Section -->
+            <div class="profile-image-section">
+                <div class="image-preview-container">
+                    <img id="profile-image-preview" src="../assets/Man_on_Bike.png" alt="Profile Image">
+                </div>
+                <div class="image-upload-controls">
+                    <input type="file" id="profile-image-input" accept="image/*" style="display: none;">
+                    <button type="button" id="upload-image-btn" class="upload-btn">Choose Profile Image</button>
+                    <button type="button" id="save-image-btn" class="save-btn" style="display: none;">Save Image</button>
+                    <p id="upload-status" class="upload-status"></p>
+                </div>
+            </div>
+
             <form id="profile-form">
                 <label>Bio:</label>
                 <input type="text" id="bio" name="bio">
@@ -77,5 +90,6 @@
         </div>
     </main>
     <script src="../js/profile.js"></script>
+    <script src="../js/logout.js" defer></script>
 </body>
 </html>

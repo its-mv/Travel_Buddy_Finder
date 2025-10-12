@@ -28,8 +28,20 @@ fetch(`http://localhost:5000/api/chat/connections/${userId}`)
             const div = document.createElement("div");
             div.className = "user-item";
             div.dataset.name = `${user.fname.toLowerCase()} ${user.lname.toLowerCase()}`;
-            div.innerText = `${user.fname} ${user.lname}`;
-            div.onclick = () => startChat(user.uid, user.fname, user.lname);
+            
+            // Add profile image
+            const img = document.createElement("img");
+            img.className = "contact-avatar";
+            img.src = user.profile_image || "../assets/Man_on_Bike.png";
+            img.alt = `${user.fname} ${user.lname}`;
+            div.appendChild(img);
+            
+            // Add name
+            const nameSpan = document.createElement("span");
+            nameSpan.innerText = `${user.fname} ${user.lname}`;
+            div.appendChild(nameSpan);
+            
+            div.onclick = () => startChat(user.uid, user.fname, user.lname, user.profile_image);
             userList.appendChild(div);
         });
     });
@@ -46,10 +58,18 @@ function filterUsers() {
 
 
 let currentReceiverId = null;
+let currentReceiverProfileImage = null;
 
-function startChat(receiverId, receiverFName, receiverLName) {
+function startChat(receiverId, receiverFName, receiverLName, profileImage) {
     currentReceiverId = receiverId;
-    document.getElementById("chat-header").innerText = `${receiverFName} ${receiverLName}`;
+    currentReceiverProfileImage = profileImage || "../assets/Man_on_Bike.png";
+    
+    // Update chat header with profile image
+    const chatHeader = document.getElementById("chat-header");
+    chatHeader.innerHTML = `
+        <img src="${currentReceiverProfileImage}" alt="${receiverFName}" class="chat-header-avatar">
+        <span>${receiverFName} ${receiverLName}</span>
+    `;
     document.getElementById("chat-box").style.display = "block";
 
     fetch(`http://localhost:5000/api/chat/messages/${userId}/${receiverId}`)

@@ -238,9 +238,16 @@ function displayTrips(trips) {
         connectButton.textContent = "Connect";
         connectButton.addEventListener("click", () => sendConnectionRequest(trip));
 
+        const profileImg = trip.profile_image || "../assets/Man_on_Bike.png";
+
         card.innerHTML = `
-            <h3>${trip.name}, ${trip.age}</h3>
-            <p><i class="fas fa-map-marker-alt"></i> ${trip.location}</p>
+            <div class="trip-creator-header">
+                <img src="${profileImg}" alt="${trip.name}" class="trip-creator-avatar">
+                <div class="trip-creator-info">
+                    <h3>${trip.name}, ${trip.age}</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> ${trip.location}</p>
+                </div>
+            </div>
             <p><i class="fas fa-plane"></i> Traveling to <strong>${trip.destination}</strong></p>
             <p><i class="fas fa-calendar-alt"></i> ${formatDate(trip.date)}</p>
             <p><i class="fas fa-dollar-sign"></i> ${trip.budget}</p>

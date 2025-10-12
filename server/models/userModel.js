@@ -38,12 +38,12 @@ const User = {
                             ufi.instagram, 
                             ufi.snapchat, 
                             ufi.facebook,
-                            GROUP_CONCAT(ts.style_name) AS style
+                            STRING_AGG(ts.style_name, ',') AS style
                         FROM user_full_info ufi
                         LEFT JOIN user_travel_styles uts ON ufi.uid = uts.uid
                         LEFT JOIN travel_styles ts ON uts.style_id = ts.id
                         WHERE ufi.uid = ?
-                        GROUP BY ufi.uid;
+                        GROUP BY ufi.uid, ufi.bio, ufi.home_city, ufi.country, ufi.address, ufi.emergency_contact, ufi.identity_verified, ufi.instagram, ufi.snapchat, ufi.facebook;
                        `;
     
         db.query(query, [userId], (err, results) => {
@@ -66,11 +66,13 @@ const User = {
                             ufi.instagram, 
                             ufi.snapchat, 
                             ufi.facebook,
-                            GROUP_CONCAT(uts.style_id) AS style 
+                            u.profile_image,
+                            STRING_AGG(uts.style_id::text, ',') AS style 
                         FROM user_full_info ufi
                         LEFT JOIN user_travel_styles uts ON ufi.uid = uts.uid
+                        LEFT JOIN "user" u ON ufi.uid = u.uid
                         WHERE ufi.uid = ?
-                        GROUP BY ufi.uid;
+                        GROUP BY ufi.uid, ufi.bio, ufi.home_city, ufi.country, ufi.address, ufi.emergency_contact, ufi.identity_verified, ufi.instagram, ufi.snapchat, ufi.facebook, u.profile_image;
                        `;
     
         db.query(query, [userId], (err, results) => {

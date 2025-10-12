@@ -23,6 +23,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             const data = await response.json();
             
             if (response.ok) {
+                // Set profile image
+                const profileImg = document.getElementById("dashboard-profile-image");
+                if (data.profile_image) {
+                    profileImg.src = data.profile_image;
+                } else {
+                    profileImg.src = "../assets/Man_on_Bike.png"; // Fallback
+                }
+
                 const gender = data.gender;
                 if (gender == "Male") {
                     document.getElementById("Gender").innerText = `Him/His`;
@@ -231,6 +239,8 @@ async function fetchUserTrips() {
         console.error("Error fetching user trips:", error);
     }
 }
+
+// Logout flow is handled by public/js/logout.js
 
 // Confirmation popup before canceling a trip
 function showCancelConfirmation(tripId, tripCard) {

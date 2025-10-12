@@ -5,7 +5,7 @@ exports.addTrip = (req, res) => {
     
     if (!uid) return res.status(400).json({ error: "User ID is required" });
     
-    const query = "INSERT INTO trip (uid, tname, from_city, from_country, to_city, to_country, date, rdate, duration, description, budget, mode, pace, accomodation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const query = "INSERT INTO trip (uid, tname, from_city, from_country, to_city, to_country, date, rdate, duration, description, budget, mode, pace, accomodation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING tid";
     
     db.query(query, [uid, tname, from_city, from_country, to_city, to_country, date, rdate, duration, description, budget, mode, pace, accomodation], (err, result) => {
         if (err) {
@@ -13,7 +13,7 @@ exports.addTrip = (req, res) => {
             return res.status(500).json({ error: "Database error", details: err.message });
         }
 
-        const tid = result.insertId; // Get the inserted trip ID
+        const tid = result[0].tid; // Get the inserted trip ID from RETURNING clause
 
         if (!activities || !Array.isArray(activities) || activities.length === 0) {
             return res.json({ message: "Trip added successfully, no activities provided" });
@@ -34,18 +34,18 @@ exports.getTrips = (req, res) => {
     const query = `
         SELECT 
             t.uid, t.tid, 
-            u.fname, u.lname, u.dob, 
+            u.fname, u.lname, u.dob, u.profile_image,
             t.tname, t.from_city, t.from_country, 
             t.to_city, t.to_country, t.date, t.rdate, t.duration, t.description, t.budget, t.mode, t.pace, t.accomodation,t.time, t.tid,
-            GROUP_CONCAT(DISTINCT ts.style_name SEPARATOR ', ') AS interests,
-            GROUP_CONCAT(DISTINCT a.activity_name SEPARATOR ', ') AS activities
+            STRING_AGG(DISTINCT ts.style_name, ', ') AS interests,
+            STRING_AGG(DISTINCT a.activity_name, ', ') AS activities
         FROM trip t
-        JOIN user u ON t.uid = u.uid
+        JOIN "user" u ON t.uid = u.uid
         LEFT JOIN user_travel_styles uts ON u.uid = uts.uid
         LEFT JOIN travel_styles ts ON uts.style_id = ts.id
         LEFT JOIN trip_activities ta ON t.tid = ta.tid
         LEFT JOIN activities a ON ta.activity_id = a.id
-        GROUP BY t.tid, t.uid, u.fname, u.lname, u.dob, t.tname, t.from_city, t.from_country, t.to_city, t.to_country, t.date, t.rdate, t.duration, t.budget, t.description, t.mode, t.pace, t.accomodation, t.time
+        GROUP BY t.tid, t.uid, u.fname, u.lname, u.dob, u.profile_image, t.tname, t.from_city, t.from_country, t.to_city, t.to_country, t.date, t.rdate, t.duration, t.budget, t.description, t.mode, t.pace, t.accomodation, t.time
     `;
 
     db.query(query, (err, results) => {
@@ -79,6 +79,7 @@ exports.getTrips = (req, res) => {
                 tid: trip.tid,
                 uid: trip.uid,
                 name: `${trip.fname} ${trip.lname}`,
+                profile_image: trip.profile_image,
                 age,
                 trip_name: trip.tname,
                 location: `${trip.from_city}, ${trip.from_country}`,
@@ -113,8 +114,8 @@ exports.getUserTrips = async (req, res) => {
         const query = `
             SELECT *, 
             CASE 
-                WHEN status IN ('completed', 'cancelled') OR rdate < CURDATE() THEN 'completed/cancelled' 
-                WHEN rdate = CURDATE() THEN 'ongoing' 
+                WHEN status IN ('completed', 'cancelled') OR rdate < CURRENT_DATE THEN 'completed/cancelled' 
+                WHEN rdate = CURRENT_DATE THEN 'ongoing' 
                 ELSE 'upcoming' 
             END AS trip_category
             FROM trip WHERE uid = ? ORDER BY date ASC`;

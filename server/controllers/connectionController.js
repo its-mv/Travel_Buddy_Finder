@@ -51,9 +51,9 @@ exports.getRequests = (req, res) => {
     }
 
     const query = `
-        SELECT c.id, c.sender_id, u.fname, u.lname, u.email, u.gender, c.status, c.created_at, c.updated_at
+        SELECT c.id, c.sender_id, u.fname, u.lname, u.email, u.gender, u.profile_image, c.status, c.created_at, c.updated_at
         FROM connections c
-        JOIN user u ON c.sender_id = u.uid
+        JOIN "user" u ON c.sender_id = u.uid
         WHERE c.receiver_id = ? AND c.status = 'pending'
     `;    
 
@@ -97,9 +97,9 @@ exports.getNotifications = (req, res) => {
     }
 
     const query = `
-        SELECT c.id, c.sender_id, c.receiver_id, c.status, u.fname, u.lname, u.email, c.created_at, c.updated_at 
+        SELECT c.id, c.sender_id, c.receiver_id, c.status, u.fname, u.lname, u.email, u.profile_image, c.created_at, c.updated_at 
         FROM connections c
-        JOIN user u ON c.receiver_id = u.uid
+        JOIN "user" u ON c.receiver_id = u.uid
         WHERE c.sender_id = ?
         ORDER BY 
             CASE 
@@ -132,18 +132,18 @@ exports.getUserRequests = (req, res) => {
     }
 
     const sentQuery = `
-        SELECT c.id, c.sender_id, c.receiver_id, u.fname, u.lname, u.email, u.gender, c.status, c.created_at, c.updated_at
+        SELECT c.id, c.sender_id, c.receiver_id, u.fname, u.lname, u.email, u.gender, u.profile_image, c.status, c.created_at, c.updated_at
         FROM connections c
-        JOIN user u ON c.receiver_id = u.uid
+        JOIN "user" u ON c.receiver_id = u.uid
         WHERE c.sender_id = ?
         ORDER BY FIELD(c.status, 'pending', 'accepted', 'declined'),
         CASE WHEN c.status = 'pending' THEN c.created_at ELSE c.updated_at END DESC
     `;
 
     const receivedQuery = `
-        SELECT c.id, c.sender_id, c.receiver_id, u.fname, u.lname, u.email, u.gender, c.status, c.created_at, c.updated_at
+        SELECT c.id, c.sender_id, c.receiver_id, u.fname, u.lname, u.email, u.gender, u.profile_image, c.status, c.created_at, c.updated_at
         FROM connections c
-        JOIN user u ON c.sender_id = u.uid
+        JOIN "user" u ON c.sender_id = u.uid
         WHERE c.receiver_id = ?
         ORDER BY FIELD(c.status, 'pending', 'accepted', 'declined'),
         CASE WHEN c.status = 'pending' THEN c.created_at ELSE c.updated_at END DESC

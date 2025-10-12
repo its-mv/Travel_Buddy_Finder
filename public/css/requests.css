@@ -79,6 +79,32 @@ h3 {
     border-left: 5px solid #2196F3;
 }
 
+.request-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.request-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #5182ed;
+    flex-shrink: 0;
+}
+
+.request-info {
+    flex: 1;
+}
+
+.request-details {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
 .request-card p {
     margin: 5px 0;
 }

@@ -68,10 +68,11 @@ PORT=3000
 Run the server:
 
 ```bash
-node server.js
+node server/server.js
 ```
-
+go to index.html and 'go live' with that page.
 Visit `http://localhost:3000` in your browser.
+http://127.0.0.1:5500/public/html/index.html
 
 ---
 

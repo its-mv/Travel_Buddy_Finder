@@ -91,7 +91,12 @@ exports.getUserById = (req, res) => {
         if (!uid) {
             return res.status(400).json({ error: "User ID is required" });
         }
-    const query = "SELECT home_city, country, gender FROM user_full_info WHERE uid = ?";
+    const query = `
+        SELECT ufi.home_city, ufi.country, ufi.gender, u.profile_image 
+        FROM user_full_info ufi
+        LEFT JOIN "user" u ON ufi.uid = u.uid
+        WHERE ufi.uid = ?
+    `;
 
     db.query(query, [uid], (err, results) => {
         if (err) return res.status(500).json({ error: "Database error" });
@@ -140,12 +145,12 @@ exports.getUserTrips = (req, res) => {
             t.to_city, t.to_country, t.date, t.rdate, 
             t.duration, t.budget, t.mode, t.pace, 
             t.accomodation, t.description, t.time,
-            GROUP_CONCAT(DISTINCT a.activity_name SEPARATOR ', ') AS activities
+            STRING_AGG(DISTINCT a.activity_name, ', ') AS activities
         FROM trip t
         LEFT JOIN trip_activities ta ON t.tid = ta.tid
         LEFT JOIN activities a ON ta.activity_id = a.id
         WHERE t.uid = ?
-        GROUP BY t.tid
+        GROUP BY t.tid, t.tname, t.gender, t.from_city, t.from_country, t.to_city, t.to_country, t.date, t.rdate, t.duration, t.budget, t.mode, t.pace, t.accomodation, t.description, t.time
     `;
 
     db.query(query, [uid], (err, results) => {
